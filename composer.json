@@ -1,0 +1,13 @@
+{
+    "name": "vendor/arrest-d-b",
+    "description": "Description of project ArrestDB.",
+    "authors": [
+        {
+            "name": "ilausuch",
+            "email": "your@email.here"
+        }
+    ],
+    "require": {
+        "slim/slim": "3.8.1"
+    }
+}
