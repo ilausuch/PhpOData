@@ -39,6 +39,12 @@ class OData{
     private $db;
     private $scheme;
     
+    /**
+     * Constructor
+     * @param ODataDBAdapter $db Datadase adapter
+     * @param ODataOptions $config OData configuration
+     * @param ODataScheme $scheme Scheme configuration
+     */
     function __construct (ODataDBAdapter $db,ODataOptions $config,ODataScheme $scheme=null){
         $this->db=$db;
         $this->config=$config;
@@ -46,6 +52,10 @@ class OData{
         OData::$object=$this;
     }
     
+    /**
+     * Returns the scheme
+     * @return ODataScheme 
+     */
     public function getScheme(){
         return $this->scheme;
     }
@@ -70,6 +80,9 @@ class OData{
                 ODataHTTP::error (ODataHTTP::E_not_implemented, "Scheme for {$entityName} isn't defined");
     }
     
+    /**
+     * Execute the service
+     */
     public function execute(){
         $app = new \Slim\App();
         
@@ -102,6 +115,10 @@ class OData{
         $app->run();
     }
     
+    /**
+     * Serves a request
+     * @param ODataRequest $request
+     */
     private function serve(ODataRequest $request){
         
         //Check auth
@@ -123,6 +140,10 @@ class OData{
         
     }
     
+    /**
+     * Get service (Query)
+     * @param ODataRequest $request
+     */
     private function serveGet(ODataRequest $request){
         
         //Get table from entity
@@ -194,6 +215,10 @@ class OData{
         }
     }
     
+    /**
+     * Post service (Creation)
+     * @param ODataRequest $request
+     */
     private function servePost(ODataRequest $request){
         // Allow from any origin
         $this->allowAnyOrigin();
@@ -225,6 +250,10 @@ class OData{
         }
     }
     
+    /**
+     * Patch service (modifications)
+     * @param ODataRequest $request
+     */
     private function servePatch(ODataRequest $request){
         // Allow from any origin
         $this->allowAnyOrigin();
@@ -257,7 +286,13 @@ class OData{
         }
     }
     
-    
+    /**
+     * Expand a entity
+     * @param type $entityData
+     * @param ODataSchemeEntity $scheme
+     * @param ODataQueryExand $expand
+     * @return object Entity modified
+     */
     private function expand(&$entityData, ODataSchemeEntity $scheme, ODataQueryExand $expand){
         //Get association info
         $association=$scheme->getAssociation($expand->getName());
@@ -306,6 +341,7 @@ class OData{
         
         return $entityData;
     }
+    
     
     private function allowAnyOrigin(){
         if (isset($this->config->allowAnyOrigin) && $this->config->allowAnyOrigin && isset($_SERVER['HTTP_ORIGIN'])) {

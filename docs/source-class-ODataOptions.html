@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="robots" content="noindex">
+
+	<title>File src/config/ODataOptions.php | PhpOData</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OData.html">OData</a></li>
+				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
+				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
+				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
+				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
+				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
+				<li><a href="class-ODataQueryExand.html">ODataQueryExand</a></li>
+				<li><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></li>
+				<li><a href="class-ODataQueryFilterComparator.html">ODataQueryFilterComparator</a></li>
+				<li><a href="class-ODataQueryFilterOperation.html">ODataQueryFilterOperation</a></li>
+				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
+				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
+				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
+				<li><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+			</li>
+			<li>
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<pre class="numbers"><code><span class="l"><a href="#1"> 1: </a></span><span class="l"><a href="#2"> 2: </a></span><span class="l"><a href="#3"> 3: </a></span><span class="l"><a href="#4"> 4: </a></span><span class="l"><a href="#5"> 5: </a></span><span class="l"><a href="#6"> 6: </a></span><span class="l"><a href="#7"> 7: </a></span><span class="l"><a href="#8"> 8: </a></span><span class="l"><a href="#9"> 9: </a></span><span class="l"><a href="#10">10: </a></span><span class="l"><a href="#11">11: </a></span><span class="l"><a href="#12">12: </a></span><span class="l"><a href="#13">13: </a></span><span class="l"><a href="#14">14: </a></span><span class="l"><a href="#15">15: </a></span><span class="l"><a href="#16">16: </a></span><span class="l"><a href="#17">17: </a></span><span class="l"><a href="#18">18: </a></span><span class="l"><a href="#19">19: </a></span><span class="l"><a href="#20">20: </a></span><span class="l"><a href="#21">21: </a></span><span class="l"><a href="#22">22: </a></span><span class="l"><a href="#23">23: </a></span><span class="l"><a href="#24">24: </a></span><span class="l"><a href="#25">25: </a></span><span class="l"><a href="#26">26: </a></span><span class="l"><a href="#27">27: </a></span></code></pre>
+<pre class="code"><code><span id="1" class="l"><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l">
+</span><span id="3" class="l"><span class="php-keyword1">class</span> ODataOptions{
+</span><span id="4" class="l">    <span class="php-keyword1">public</span> <span class="php-var">$allowAnyOrigin</span>;
+</span><span id="5" class="l">    <span class="php-keyword1">public</span> <span class="php-var">$enableOptionsRequest</span>;
+</span><span id="6" class="l">    <span class="php-keyword1">public</span> <span class="php-var">$clients</span>;
+</span><span id="7" class="l">    <span class="php-keyword1">public</span> <span class="php-var">$allowQueryMethodModifiers</span>;
+</span><span id="8" class="l">    
+</span><span id="9" class="l">    <span class="php-keyword1">function</span> __construct() {
+</span><span id="10" class="l">        <span class="php-var">$this</span>-&gt;allowAnyOrigin=<span class="php-keyword1">false</span>;
+</span><span id="11" class="l">        <span class="php-var">$this</span>-&gt;enableOptionsRequest=<span class="php-keyword1">true</span>;
+</span><span id="12" class="l">        <span class="php-var">$this</span>-&gt;clients=[];
+</span><span id="13" class="l">        <span class="php-var">$this</span>-&gt;allowQueryMethodModifiers=<span class="php-keyword1">false</span>;
+</span><span id="14" class="l">    }
+</span><span id="15" class="l">    
+</span><span id="16" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> checkAuth(ODataRequest <span class="php-var">$request</span>){
+</span><span id="17" class="l">        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="18" class="l">    }
+</span><span id="19" class="l">    
+</span><span id="20" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> entityAlias(<span class="php-var">$alias</span>){
+</span><span id="21" class="l">        <span class="php-keyword1">return</span> <span class="php-var">$alias</span>;
+</span><span id="22" class="l">    }
+</span><span id="23" class="l">    
+</span><span id="24" class="l">    <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> allow(ODataRequest <span class="php-var">$request</span>){
+</span><span id="25" class="l">        <span class="php-keyword1">return</span> <span class="php-keyword1">true</span>;
+</span><span id="26" class="l">    }
+</span><span id="27" class="l">}</span></code></pre>
+
+	<div id="footer">
+		PhpOData API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js?c634dd9bb5d0fd0116fea64ea3410146157a161a"></script>
+<script src="elementlist.js?b2861c5e28f7129d77bc2770facbcb29ec66e519"></script>
+</body>
+</html>
