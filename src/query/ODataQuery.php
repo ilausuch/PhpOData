@@ -7,6 +7,7 @@ class ODataQuery{
     private $filterAggregator;
     private $top;
     private $skip;
+    private $expand;
     
     function __construct($from) {
         $this->select="*";
@@ -29,6 +30,10 @@ class ODataQuery{
         $this->filterAggregator->parse($tokens);
     }
     
+    public function setFilterAggregator(ODataQueryFilterAggregator $filterAggregator){
+        $this->filterAggregator=$filterAggregator;
+    }
+    
     public function setTop($top){
         $this->top=$top;
     }
@@ -36,6 +41,11 @@ class ODataQuery{
     public function setSkip($skip){
         $this->skip=$skip;
     }
+    
+    public function setExpand($expand){
+        $this->expand=ODataQueryExand::parse($expand);
+    }
+    
     /*
      * GETS
      */
@@ -62,6 +72,10 @@ class ODataQuery{
     
     public function getSkip(){
         return $this->skip;
+    }
+    
+    public function getExpand(){
+        return $this->expand;
     }
     
     

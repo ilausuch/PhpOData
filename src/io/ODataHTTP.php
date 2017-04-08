@@ -56,4 +56,18 @@ class ODataHTTP{
         header("HTTP/1.1 204 No content");
         exit();
     }
+    
+    public static function allowOrigin(){
+        header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
+        header('Access-Control-Allow-Credentials: true');
+        header('Access-Control-Max-Age: 86400');    // cache for 1 day
+    }
+    
+    public static function accessControlAllowMethods(){
+        header("Access-Control-Allow-Methods: GET, POST, PUT, PATCH, OPTIONS, DELETE");
+    }
+    
+    public static function accessControllAllowHeaders(){
+        header("Access-Control-Allow-Headers: {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+    }
 }

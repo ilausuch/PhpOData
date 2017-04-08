@@ -36,6 +36,22 @@ class ODataQueryFilterAggregator{
         }
     }
     
+    /**
+     * 
+     * @param type $list
+     * @return ODataQueryFilterAggregator
+     */
+    public static function CreateAndList($list){
+        $agregator=new ODataQueryFilterAggregator();
+        $agregator->left=$list[0];
+        array_shift($list);
+        if (count($list)>0){
+           $agregator->rigth=ODataQueryFilterAggregator::AndList($list); 
+        }
+        
+        return $agregator;
+    }
+    
     public function getLeft(){
         return $this->left;
     }

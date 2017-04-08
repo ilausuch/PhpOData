@@ -1,0 +1,43 @@
+{
+    "entities": {
+        "User":{
+            "associations":{
+                "Sensor":{
+                    "associated":"Sensor",
+                    "relationType":"multiple",
+                    "relationFields":[
+                        {
+                            "local":"id",
+                            "foreign":"UserFK"
+                        }
+                    ]
+                }
+            }
+        },
+        "Sensor":{
+            "associations":{
+                "User":{
+                    "associated":"User",
+                    "relationType":"single",
+                    "relationFields":[
+                        {
+                        "local":"UserFK",
+                        "foreign":"id"
+                        }
+                    ]
+                },
+                "Group":{
+                    "associated":"Group",
+                    "relationType":"single",
+                    "relationFields":[
+                        {
+                        "local":"Group_id",
+                        "foreign":"id"
+                        }
+                    ]
+                    
+                }
+            }
+        }
+    }
+}

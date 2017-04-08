@@ -4,7 +4,16 @@ class ODataQueryFilterComparator{
     public $not;
     public $op;
     public $left;
-    public $ºright;
+    public $right;
+    
+    public function init($left,$op,$rigth,$not=false){
+        $this->left=$left;
+        $this->right=strtolower($rigth);
+        $this->op=$op;
+        $this->not=$not;
+        
+        return $this;
+    }
     
     public function parse($tokens){
         $str=join(" ",$tokens);

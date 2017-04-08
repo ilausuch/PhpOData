@@ -16,6 +16,7 @@ require_once("db/ODataMysql.php");
 require_once("scheme/ODataScheme.php");
 require_once("scheme/ODataSchemeEntity.php");
 require_once("scheme/ODataSchemeEntityField.php");
+require_once("scheme/ODataSchemeEntityAssociation.php");
 require_once("io/ODataHTTP.php");
 require_once("io/ODataRequest.php");
 require_once("io/ODataResponse.php");
@@ -23,10 +24,17 @@ require_once("query/ODataQuery.php");
 require_once("query/ODataQueryFilterAggregator.php");
 require_once("query/ODataQueryFilterComparator.php");
 require_once("query/ODataQueryFilterOperation.php");
+require_once("query/ODataQueryExpand.php");
 require_once("config/ODataOptions.php");
 
 class OData{
-
+    
+    /**
+     * Unique OData object
+     * @var type OData
+     */
+    public static $object;
+    
     private $config;
     private $db;
     private $scheme;
@@ -35,13 +43,273 @@ class OData{
         $this->db=$db;
         $this->config=$config;
         $this->scheme=$scheme;
+        OData::$object=$this;
+    }
+    
+    public function getScheme(){
+        return $this->scheme;
+    }
+    
+    /**
+     * Returns a complete Entity Scheme convining configured scheme and DB scheme
+     * @param string $entityName
+     * @return ODataSchemeEntity
+     */
+    public function getEntityScheme($entityName){
+        $scheme=$this->scheme->getEntity($entityName);
+        $dbScheme=$this->db->discoverTableScheme($entityName);
+        
+        if (isset($scheme)){
+            if (count($scheme->getFields())==0)
+                $scheme->setFields($dbScheme->getFields());
+            
+            return $scheme;
+        }
+        else
+            if (!isset($dbScheme))
+                ODataHTTP::error (ODataHTTP::E_not_implemented, "Scheme for {$entityName} isn't defined");
+    }
+    
+    public function execute(){
+        $app = new \Slim\App();
+        
+        $container=$app->getContainer();
+        $container["odata"]=$this;
+        
+        $app->any('/odata/{entityStr}', function (Request $requestSlim, Response $responseSlim,$args) {
+                    
+            //Check cli
+            OData::$object->checkCli();
+
+            // Allow from any origin
+            OData::$object->allowAnyOrigin();
+            
+            // Access-Control headers are received during OPTIONS requests
+            OData::$object->enableOptionsRequest();
+
+            //Check clients
+            OData::$object->checkClients();
+
+            //Query options modifiers
+            OData::$object->queryMethodModifiers();
+            
+            //Run server
+            $this->odata->serve(new ODataRequest($requestSlim));
+            
+            return $responseSlim;
+        });
+        
+        $app->run();
+    }
+    
+    private function serve(ODataRequest $request){
+        
+        //Check auth
+        //TODO $this->checkAuth();
+        
+        switch($request->getMethod()){
+            case "GET":
+                $this->serveGet($request);
+            break;
+            case "POST":
+                $this->servePost($request);
+            break;
+            case "PATCH":
+                $this->servePatch($request);
+            break;
+            default:
+                ODataHTTP::error(ODataHTTP::E_not_implemented, $request->getMethod(). "method is not implememn");
+        }
+        
+    }
+    
+    private function serveGet(ODataRequest $request){
+        
+        //Get table from entity
+        $table=$this->config->entityAlias($request->getEntity());
+        
+        //Get scheme
+        /* @var $tableScheme ODataSchemeEntity */
+        $tableScheme=$this->getEntityScheme($table);
+        
+        //TODO: Ofuscade Id
+        
+        //Check if operation is allowed
+        if (!$this->config->allow($request))
+            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation");
+	
+        //Init query
+	$query=new ODataQuery($table);
+        
+        //Add where elements for primary key
+        $schemePk=$tableScheme->getPk();
+        
+        if (count($schemePk)==0){
+            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$table." has not Primary key");
+        }
+        else{
+            if (count($schemePk)==1){
+                if (count($request->getPk())>0)
+                    $query->addWhere($schemePk[0]->getName(),$request->getPk()[0]);
+            }
+            else{
+                //TODO : Prepare WHERE with multiples Ids
+                ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+            }
+        }
+        
+        //Setup filter
+        if ($request->getFilter()!=null)
+            $query->setFilter($request->getFilter());
+        
+        if ($request->getTop()!=null)
+            $query->setTop($request->getTop());
+        
+        if ($request->getSkip()!=null)
+            $query->setSkip($request->getSkip());
+        
+        if ($request->getExpand()!=null)
+            $query->setExpand($request->getExpand());
+        
+        try{
+            $result=$this->db->query($query);
+            
+            //Check if exists a expand in query
+            $expand=$query->getExpand();
+            
+            if ($expand!=null){
+                //For each entity of result
+                foreach ($result as &$entityData){
+                    //For each expand entity
+                    foreach ($expand as $expandEntity)
+                        $this->expand($entityData,$tableScheme,$expandEntity);
+                }
+            }
+            
+            ODataHTTP::successArray($result);
+        }catch(Exception $e){
+            echo "<pre>";
+            print_r($e->getMessage());
+            die();
+        }
+    }
+    
+    private function servePost(ODataRequest $request){
+        // Allow from any origin
+        $this->allowAnyOrigin();
+        
+        //Get table from entity
+        $table=$this->config->entityAlias($request->getEntity());
+            
+        //Get scheme
+        /* @var $tableScheme ODataSchemeEntity */
+        $tableScheme=$this->getEntityScheme($table);
+        
+        //Check if operation is allowed
+        if (!$this->config->allow($request))
+            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
+        
+        //Check body and extract element
+        $element=$request->getBody();
+        $element= json_decode($element,true);
+        
+        //TODO: Check element
+        //$tableScheme->checkNewElement($element);
+        
+        //Send to DB
+        try{
+            $result=$this->db->insert($element,$table);
+            ODataHTTP::successModifiedElement($result);
+        }catch(Exception $ex){
+            ODataHTTP::errorException($ex);
+        }
+    }
+    
+    private function servePatch(ODataRequest $request){
+        // Allow from any origin
+        $this->allowAnyOrigin();
+        
+        //Get table from entity
+        $table=$this->config->entityAlias($request->getEntity());
+            
+        //Get scheme
+        /* @var $tableScheme ODataSchemeEntity */
+        $tableScheme=$this->getEntityScheme($table);
+        
+        //Check if operation is allowed
+        if (!$this->config->allow($request))
+            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
+            
+        //Check body and extract element
+        $element=$request->getBody();
+        $element= json_decode($element,true);
+        
+        
+        //TODO: Check element
+        //$tableScheme->checkNewElement($element);
+        
+        //Send to DB
+        try{
+            $result=$this->db->update($element,$table);
+            ODataHTTP::successModifiedElement($result);
+        }catch(Exception $ex){
+            ODataHTTP::errorException($ex);
+        }
+    }
+    
+    
+    private function expand(&$entityData, ODataSchemeEntity $scheme, ODataQueryExand $expand){
+        //Get association info
+        $association=$scheme->getAssociation($expand->getName());
+        
+        //Get associated table name
+        $associatedTable=$this->config->entityAlias($expand->getName());
+        
+        //GEt associated entity scheme
+        $associatedScheme=$this->getEntityScheme($associatedTable);
+        
+        if (!isset($entityData[$association->getField()])){
+            //TODO: Ofuscade Id
+
+            //TODO: Check if extends is allowed
+
+            //Prepare where options
+            $list=[];
+            foreach ($association->getRelationFields() as $relationField){
+                $comparator=new ODataQueryFilterComparator();
+                $comparator->init($relationField["foreign"],"=",$entityData[$relationField["local"]]);
+                $list[]=$comparator;
+            }
+            $aggregator= ODataQueryFilterAggregator::CreateAndList($list);
+
+            //Prepare query
+            $query=new ODataQuery($associatedTable);
+            $query->setFilterAggregator($aggregator);
+
+            $associatedEntities=$this->db->query($query);
+
+            if ($association->isMultiple())
+                $entityData[$association->getField()]=$associatedEntities;
+            else
+                if (count($associatedEntities)>0)
+                    $entityData[$association->getField()]=$associatedEntities[0];
+        }
+        
+        $expand=$expand->getChild();
+        
+        if ($expand!=null){
+            //For each entity of result
+            foreach ($entityData[$association->getField()] as &$entityData2){
+                $this->expand($entityData2,$associatedScheme,$expand);
+            }
+        }
+        
+        return $entityData;
     }
     
     private function allowAnyOrigin(){
         if (isset($this->config->allowAnyOrigin) && $this->config->allowAnyOrigin && isset($_SERVER['HTTP_ORIGIN'])) {
-            header("Access-Control-Allow-Origin: {$_SERVER['HTTP_ORIGIN']}");
-            header('Access-Control-Allow-Credentials: true');
-            header('Access-Control-Max-Age: 86400');    // cache for 1 day
+            ODataHTTP::allowOrigin();
         }
     }
     
@@ -49,11 +317,11 @@ class OData{
         if (isset($this->config->enableOptionsRequest) && $this->config->enableOptionsRequest && $_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-                header("Access-Control-Allow-Methods: GET, POST, OPTIONS, DELETE");
+                ODataHTTP::accessControlAllowMethods();
             }
 
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
-                header("Access-Control-Allow-Headers:        {$_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS']}");
+                ODataHTTP::accessControllAllowHeaders();
             }
 
             exit(0);
@@ -91,178 +359,6 @@ class OData{
             ODataHTTP::error(ODataHTTP::E_unauthorized,"You must autenticate first");
     }
     
-    private function serve(ODataRequest $request, ODataResponse $response){
-        
-        //Check auth
-        //TODO $this->checkAuth();
-        
-        switch($request->getMethod()){
-            case "GET":
-                $this->serveGet($request,$response);
-            break;
-            case "POST":
-                $this->servePost($request,$response);
-            break;
-            case "PATCH":
-                $this->servePatch($request,$response);
-            break;
-            default:
-                ODataHTTP::error(ODataHTTP::E_not_implemented, $request->getMethod(). "method is not implememn");
-        }
-        
-    }
-    
-    private function serveGet(ODataRequest $request, ODataResponse $response){
-        
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-            
-        //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->db->discoverTableScheme($table);
-        
-        //TODO: Ofuscade Id
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation");
-	
-        //Init query
-	$query=new ODataQuery($table);
-        
-        //Add where elements for primary key
-        $schemePk=$tableScheme->getPk();
-        
-        if (count($schemePk)==0){
-            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$table." has not Primary key");
-        }
-        else{
-            if (count($schemePk)==1){
-                if (count($request->getPk())>0)
-                    $query->addWhere($schemePk[0]->getName(),$request->getPk()[0]);
-            }
-            else{
-                //TODO : Prepare WHERE with multiples Ids
-                ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
-            }
-        }
-        
-        //Setup filter
-        if ($request->getFilter()!=null)
-            $query->setFilter($request->getFilter());
-        
-        if ($request->getTop()!=null)
-            $query->setTop($request->getTop());
-        
-        if ($request->getSkip()!=null)
-            $query->setSkip($request->getSkip());
-
-        try{
-            $result=$this->db->query($query);
-            ODataHTTP::successArray($result);
-        }catch(Exception $e){
-            echo "<pre>";
-            print_r($e->getMessage());
-            die();
-        }
-    }
-    
-    private function servePost(ODataRequest $request, ODataResponse $response){
-        // Allow from any origin
-        $this->allowAnyOrigin();
-        
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-            
-        //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->db->discoverTableScheme($table);
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
-        
-        //Check body and extract element
-        $element=$request->getBody();
-        $element= json_decode($element,true);
-        
-        //TODO: Check element
-        //$tableScheme->checkNewElement($element);
-        
-        //Send to DB
-        try{
-            $result=$this->db->insert($element,$table);
-            ODataHTTP::successModifiedElement($result);
-        }catch(Exception $ex){
-            ODataHTTP::errorException($ex);
-        }
-    }
-    
-    private function servePatch(ODataRequest $request, ODataResponse $response){
-        // Allow from any origin
-        $this->allowAnyOrigin();
-        
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-            
-        //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->db->discoverTableScheme($table);
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
-            
-        //Check body and extract element
-        $element=$request->getBody();
-        $element= json_decode($element,true);
-        
-        
-        //TODO: Check element
-        //$tableScheme->checkNewElement($element);
-        
-        //Send to DB
-        try{
-            $result=$this->db->update($element,$table);
-            ODataHTTP::successModifiedElement($result);
-        }catch(Exception $ex){
-            ODataHTTP::errorException($ex);
-        }
-    }
-    
-    public function execute(){
-        // Allow from any origin
-        $this->allowAnyOrigin();
-        
-        $app = new \Slim\App;
-        
-        $container=$app->getContainer();
-        $container["odata"]=$this;
-        
-        $app->any('/odata/{entityStr}', function (Request $requestSlim, Response $responseSlim,$args) {
-            $request = new ODataRequest($requestSlim);
-            $response= new ODataResponse($responseSlim);
-            
-            
-            // Access-Control headers are received during OPTIONS requests
-            //$this->enableOptionsRequest();
-
-            //Check cli
-            //$this->checkCli();
-
-            //Check clients
-            //$this->checkClients();
-
-            //Query options modifiers
-            //$this->queryMethodModifiers();
-            
-            //Serve
-            $this->odata->serve($request,$response);
-            
-            return $response->responseSlim;
-        });
-        
-        $app->run();
-    }
+  
 }
 

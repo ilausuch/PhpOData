@@ -30,6 +30,10 @@ class ODataDBAdapter{
     
     public function insert($element, $table){}
     
+    /*
+     * Extract table scheme from DB
+     * @return ODataSchemeEntity The scheme
+     */
     public function discoverTableScheme($table){}
     
 }

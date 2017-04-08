@@ -19,6 +19,10 @@ class ODataSchemeEntityField{
         $this->extra=$extra;
     }
     
+    public static function parse($config){
+        //TODO : Parse field
+    }
+    
     public function isPk(){
         return $this->pk;
     }

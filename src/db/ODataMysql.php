@@ -27,25 +27,31 @@ class ODataMysql extends ODataDBAdapter{
         if ($comparator->getNot())
             $query.="NOT ";
         
-        $query.=$comparator->getLeft();
+        $query.="`".$comparator->getLeft()."`";
         
         switch ($comparator->getOp()){
             case eq:
+            case "=":
                 $query.="=";
                 break;
             case ne:
+            case "<>":
                 $query.="<>";
                 break;
             case gt:
+            case ">":
                 $query.=">";
                 break;
             case ge:
+            case ">=":
                 $query.=">=";
                 break;
             case lt:
+            case "<":
                 $query.="<";
                 break;
             case le:
+                case "<=":
                 $query.="<=";
                 break;
             //TODO : Other operations
@@ -53,7 +59,7 @@ class ODataMysql extends ODataDBAdapter{
                 throw new Exception("Operation ".$comparator->getOp()." not implemnted in \$filter",ODataHTTP::E_not_implemented);
         }
         
-        $query.=$comparator->getRight();
+        $query.="'".$comparator->getRight()."'";
         
         return $query;
     }
@@ -63,12 +69,16 @@ class ODataMysql extends ODataDBAdapter{
         $query.=$this->processFilterComparator($aggregator->getLeft());
         
         if ($aggregator->getRight()){
-            $query.=" ".$aggregator->getOp()." ".$this->processFilterAggregator($aggregator->getRight());
+            $query.=" ".$aggregator->getOp()." '".$this->processFilterAggregator($aggregator->getRight())."'";
         }
         
         $query.=")";
         
         return $query;
+    }
+    
+    public function internalQuery(){
+        
     }
     
     public function query(ODataQuery $query){
@@ -80,14 +90,14 @@ class ODataMysql extends ODataDBAdapter{
         $whereString.="";
         
         //Selector and from
-        $queryString.="{$query->getSelect()} FROM {$query->getFrom()}";
+        $queryString.="{$query->getSelect()} FROM `{$query->getFrom()}`";
     
         //Where for Primary key
         $where=$query->getWhere();
 
         if ($where!=null && count($where)>0){
             foreach ($where as $k=>$v){
-                $whereString.="{$k}='{$v}'";
+                $whereString.="`{$k}`='{$v}'";
             }
 
             $whereString.=" ";
@@ -121,6 +131,7 @@ class ODataMysql extends ODataDBAdapter{
         
         $result=[];
         foreach ($stmt->fetchAll() as $item){
+            
             $result[]=$scheme->createElementFromSource($item);
         }
         
@@ -213,7 +224,7 @@ class ODataMysql extends ODataDBAdapter{
             return $this->tableSchemes[$table];
         
         $this->connect();
-        $stmt=$this->db->prepare("describe {$table};") ;
+        $stmt=$this->db->prepare("describe `{$table}`;") ;
         $stmt->execute();
         
         $fields=[];
@@ -229,7 +240,8 @@ class ODataMysql extends ODataDBAdapter{
             );
         };
         
-        $this->tableSchemes[$table]=new ODataSchemeEntity($table,$fields);
+        $this->tableSchemes[$table]=new ODataSchemeEntity($table);
+        $this->tableSchemes[$table]->setFields($fields);
         return $this->tableSchemes[$table];
     }
 }
