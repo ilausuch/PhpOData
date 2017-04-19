@@ -3,8 +3,10 @@
 class ODataScheme{
     private $entities;
     
-    function __construct() {
+    function __construct($entities=[]) {
         $this->entities=[];
+        foreach ($entities as $entity)
+            $this->entities[$entity->getName()]=$entity;
     }
     
     public static function parse($json){
@@ -30,6 +32,7 @@ class ODataScheme{
         
         return $scheme;
     }
+    
     
     public function addEntity(ODataSchemeEntity $entity){
         $this->entities[$entity->getName()]=$entity;

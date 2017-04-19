@@ -17,27 +17,34 @@ require_once("scheme/ODataScheme.php");
 require_once("scheme/ODataSchemeEntity.php");
 require_once("scheme/ODataSchemeEntityField.php");
 require_once("scheme/ODataSchemeEntityAssociation.php");
+require_once("scheme/ODataSchemeEntityAssociationRelationField.php");
 require_once("io/ODataHTTP.php");
 require_once("io/ODataRequest.php");
 require_once("io/ODataResponse.php");
 require_once("query/ODataQuery.php");
+require_once("query/ODataQueryFilterBase.php");
 require_once("query/ODataQueryFilterAggregator.php");
 require_once("query/ODataQueryFilterComparator.php");
 require_once("query/ODataQueryFilterOperation.php");
 require_once("query/ODataQueryExpand.php");
+require_once("query/ODataQueryOrderBy.php");
+require_once("query/ODataQueryOrderByList.php");
 require_once("config/ODataOptions.php");
+require_once("tools/ODataCrypt.php");
+require_once("tools/ODataSchemeEntityGeneralTools.php");
+require_once("tools/ODataFilterParser.php");
 
 class OData{
     
     /**
      * Unique OData object
-     * @var type OData
+     * @var OData OData
      */
     public static $object;
     
-    private $config;
-    private $db;
-    private $scheme;
+    protected $config;
+    protected $db;
+    protected $scheme;
     
     /**
      * Constructor
@@ -61,35 +68,46 @@ class OData{
     }
     
     /**
+     * Returns the DB adapter
+     * @return ODataDBAdapter
+     */
+    public function getDb(){
+        return $this->db;
+    }
+    
+    /**
+     * Returns the configuration object
+     * @return ODataOptions
+     */
+    public function getConfig(){
+        return $this->config;
+    }
+    /**
      * Returns a complete Entity Scheme convining configured scheme and DB scheme
      * @param string $entityName
      * @return ODataSchemeEntity
      */
     public function getEntityScheme($entityName){
         $scheme=$this->scheme->getEntity($entityName);
-        $dbScheme=$this->db->discoverTableScheme($entityName);
         
-        if (isset($scheme)){
-            if (count($scheme->getFields())==0)
-                $scheme->setFields($dbScheme->getFields());
-            
+        if (isset($scheme))
             return $scheme;
-        }
         else
-            if (!isset($dbScheme))
-                ODataHTTP::error (ODataHTTP::E_not_implemented, "Scheme for {$entityName} isn't defined");
+            ODataHTTP::error (ODataHTTP::E_not_implemented, "Scheme for {$entityName} isn't defined");
     }
     
     /**
      * Execute the service
      */
-    public function execute(){
-        $app = new \Slim\App();
+    public function execute($debug=false){
+        $app = new \Slim\App([
+            "debug"=>$debug
+        ]);
         
         $container=$app->getContainer();
         $container["odata"]=$this;
         
-        $app->any('/odata/{entityStr}', function (Request $requestSlim, Response $responseSlim,$args) {
+        $app->any('/odata/{entityQueryStr}', function (Request $requestSlim, Response $responseSlim,$args) {
                     
             //Check cli
             OData::$object->checkCli();
@@ -119,7 +137,7 @@ class OData{
      * Serves a request
      * @param ODataRequest $request
      */
-    private function serve(ODataRequest $request){
+    protected function serve(ODataRequest $request){
         
         //Check auth
         //TODO $this->checkAuth();
@@ -144,34 +162,37 @@ class OData{
      * Get service (Query)
      * @param ODataRequest $request
      */
-    private function serveGet(ODataRequest $request){
-        
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-        
+    protected function serveGet(ODataRequest $request){
         //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->getEntityScheme($table);
+        $scheme=$this->prepareOperation($request);
         
-        //TODO: Ofuscade Id
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation");
-	
         //Init query
-	$query=new ODataQuery($table);
+	$query=new ODataQuery($scheme->getName());
         
         //Add where elements for primary key
-        $schemePk=$tableScheme->getPk();
+        $schemePk=$scheme->getPk();
         
         if (count($schemePk)==0){
-            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$table." has not Primary key");
+            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$scheme->getName()." has not Primary key");
         }
         else{
             if (count($schemePk)==1){
-                if (count($request->getPk())>0)
-                    $query->addWhere($schemePk[0]->getName(),$request->getPk()[0]);
+                if (count($request->getPk())==0){
+                    //DO nothing
+                }
+                else
+                    if (count($request->getPk())==1)
+                        $query->addWhere(
+                            $schemePk[0]->getName(),
+                            $scheme->security_preprocesInputField(
+                                $schemePk[0],
+                                $request->getPk()[0],
+                                $request->getMethod()
+                            )
+                        );
+                    else
+                        //TODO: Implement multiple
+                        ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
             }
             else{
                 //TODO : Prepare WHERE with multiples Ids
@@ -181,19 +202,58 @@ class OData{
         
         //Setup filter
         if ($request->getFilter()!=null)
-            $query->setFilter($request->getFilter());
+            $query->setFilter(ODataFilterParser::parse($request->getFilter()));
         
-        if ($request->getTop()!=null)
-            $query->setTop($request->getTop());
         
+        //Extract extra conditions from Entity scheme
+        $externalConditions=$scheme->query_db_conditions();
+        
+        if ($externalConditions!=null){
+            //If exists an aggregator
+            if ($query->getFilterAggregator()==null){
+                //If is filter comparator, envolve in filter aggregator
+                if ($externalConditions instanceof ODataQueryFilterComparator)
+                    $externalConditions= ODataQueryFilterAggregator::CreateAndList ([$externalConditions]);
+                
+                //Set filter aggreagtor to query
+                $query->setFilterAggregator($externalConditions);
+            }else{
+                //Append aggregator to current
+                $query->setFilterAggregator(ODataQueryFilterAggregator::union($externalConditions,$query->getFilterAggregator()));
+            }
+        }
+        
+        
+        //Set internal Order
+        $query->setOrder($scheme->query_db_orderby());
+        
+        
+        //Top or Limits
+        $top=$request->getTop();
+        $top2=$scheme->query_db_limit();
+        
+        if ($top!=null && $top2!=null)
+            $query->setTop(min([$top,$top2]));
+        else{
+            if ($top!=null)
+                $query->setTop($top);
+            
+            if ($top2!=null)
+                $query->setTop($top2);
+        }
+        
+        //Skip
         if ($request->getSkip()!=null)
             $query->setSkip($request->getSkip());
         
+        //Expand
         if ($request->getExpand()!=null)
             $query->setExpand($request->getExpand());
         
+        
         try{
             $result=$this->db->query($query);
+            $result=$scheme->createEntityListFromSource($result);
             
             //Check if exists a expand in query
             $expand=$query->getExpand();
@@ -203,15 +263,23 @@ class OData{
                 foreach ($result as &$entityData){
                     //For each expand entity
                     foreach ($expand as $expandEntity)
-                        $this->expand($entityData,$tableScheme,$expandEntity);
+                        $this->expand($entityData,$scheme,$expandEntity);
                 }
             }
             
+            //If exist an order sort this
+            if ($request->getOrderBy()!=null){
+                $order=ODataQueryOrderByList::parse($request->getOrderBy());
+                $result=$order->sort($result);
+            }
+            
+            $result=$scheme->prepareEntityListForOutput($result);
+            
+            
+            
             ODataHTTP::successArray($result);
         }catch(Exception $e){
-            echo "<pre>";
-            print_r($e->getMessage());
-            die();
+            ODataHTTP::errorException($e);
         }
     }
     
@@ -219,31 +287,20 @@ class OData{
      * Post service (Creation)
      * @param ODataRequest $request
      */
-    private function servePost(ODataRequest $request){
-        // Allow from any origin
-        $this->allowAnyOrigin();
-        
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-            
-        //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->getEntityScheme($table);
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
+    protected function servePost(ODataRequest $request){
+        $scheme=$this->prepareOperation($request);
         
         //Check body and extract element
         $element=$request->getBody();
         $element= json_decode($element,true);
         
         //TODO: Check element
-        //$tableScheme->checkNewElement($element);
+        //$scheme->checkNewElement($element);
         
         //Send to DB
         try{
             $result=$this->db->insert($element,$table);
+            $result=$scheme->prepareEntityListForOutput($result);
             ODataHTTP::successModifiedElement($result);
         }catch(Exception $ex){
             ODataHTTP::errorException($ex);
@@ -254,21 +311,9 @@ class OData{
      * Patch service (modifications)
      * @param ODataRequest $request
      */
-    private function servePatch(ODataRequest $request){
-        // Allow from any origin
-        $this->allowAnyOrigin();
+    protected function servePatch(ODataRequest $request){
+        $scheme=$this->prepareOperation($request);
         
-        //Get table from entity
-        $table=$this->config->entityAlias($request->getEntity());
-            
-        //Get scheme
-        /* @var $tableScheme ODataSchemeEntity */
-        $tableScheme=$this->getEntityScheme($table);
-        
-        //Check if operation is allowed
-        if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_unauthorized,"Cannot perform this operation");
-            
         //Check body and extract element
         $element=$request->getBody();
         $element= json_decode($element,true);
@@ -280,6 +325,7 @@ class OData{
         //Send to DB
         try{
             $result=$this->db->update($element,$table);
+            $result=$scheme->prepareEntityListForOutput($result);
             ODataHTTP::successModifiedElement($result);
         }catch(Exception $ex){
             ODataHTTP::errorException($ex);
@@ -293,36 +339,49 @@ class OData{
      * @param ODataQueryExand $expand
      * @return object Entity modified
      */
-    private function expand(&$entityData, ODataSchemeEntity $scheme, ODataQueryExand $expand){
+    protected function expand(&$entityData, ODataSchemeEntity $scheme, ODataQueryExand $expand){
+        
         //Get association info
         $association=$scheme->getAssociation($expand->getName());
         
         //Get associated table name
-        $associatedTable=$this->config->entityAlias($expand->getName());
+        $associatedTable=$this->config->entityAlias($association->getAssociated());
         
         //GEt associated entity scheme
         $associatedScheme=$this->getEntityScheme($associatedTable);
         
-        if (!isset($entityData[$association->getField()])){
-            //TODO: Ofuscade Id
-
-            //TODO: Check if extends is allowed
-
+        if (!isset($entityData[$association->getField()]) &&
+            //Check if this association is allowed to extends
+            $scheme->security_allowExtends($association) 
+        ){
             //Prepare where options
             $list=[];
             foreach ($association->getRelationFields() as $relationField){
-                $comparator=new ODataQueryFilterComparator();
-                $comparator->init($relationField["foreign"],"=",$entityData[$relationField["local"]]);
-                $list[]=$comparator;
+                $list[]=new ODataQueryFilterComparator($relationField->getForeign(),"=",$entityData[$relationField->getLocal()]);
             }
+            
+            //Create and list
             $aggregator= ODataQueryFilterAggregator::CreateAndList($list);
+            
+            //Add external conditions
+            $externalConditions=$scheme->query_db_conditions();
+            if ($externalConditions!=null){
+                $aggregator=ODataQueryFilterAggregator::union($externalConditions,$aggregator);
+            }
 
             //Prepare query
             $query=new ODataQuery($associatedTable);
             $query->setFilterAggregator($aggregator);
-
+            
+            //Add order by to query
+            if ($associatedScheme->query_db_orderby()!=null)
+                $query->setOrder($associatedScheme->query_db_orderby());
+            
+            //Get associated entities
             $associatedEntities=$this->db->query($query);
-
+            $associatedEntities=$associatedScheme->prepareEntityListForOutput($associatedEntities);
+            
+            //Add result entities to the parent
             if ($association->isMultiple())
                 $entityData[$association->getField()]=$associatedEntities;
             else
@@ -330,26 +389,30 @@ class OData{
                     $entityData[$association->getField()]=$associatedEntities[0];
         }
         
-        $expand=$expand->getChild();
-        
-        if ($expand!=null){
+        //Check if there are child more expands
+        if ($expand->getChild()!=null){
             //For each entity of result
             foreach ($entityData[$association->getField()] as &$entityData2){
-                $this->expand($entityData2,$associatedScheme,$expand);
+                $this->expand($entityData2,$associatedScheme,$expand->getChild());
             }
         }
         
         return $entityData;
     }
     
-    
-    private function allowAnyOrigin(){
+    /**
+     * If allow from any origin is defined, send headers
+     */
+    protected function allowAnyOrigin(){
         if (isset($this->config->allowAnyOrigin) && $this->config->allowAnyOrigin && isset($_SERVER['HTTP_ORIGIN'])) {
             ODataHTTP::allowOrigin();
         }
     }
     
-    private function enableOptionsRequest(){
+    /**
+     * If options method is allowed send headers
+     */
+    protected function enableOptionsRequest(){
         if (isset($this->config->enableOptionsRequest) && $this->config->enableOptionsRequest && $_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
@@ -364,20 +427,20 @@ class OData{
         }
     }
     
-    private function checkCli(){
-        if (strcmp(PHP_SAPI, 'cli') === 0){
-            exit(' should not be run from CLI.' . PHP_EOL);
-        }
-    }
-    
-    private function checkClients(){
+    /**
+     * If clients is defined check it and send error if it is necessary
+     */
+    protected function checkClients(){
         if ((empty($this->config->clients) !== true) 
                 && (in_array($_SERVER['REMOTE_ADDR'], (array) $this->config->clients) !== true)){
             ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot perform this operation from this url");
         }
     }
     
-    private function queryMethodModifiers(){
+    /**
+     * Enable query medhod motifiers
+     */
+    protected function queryMethodModifiers(){
         if ($this->config->allowQueryMethodModifiers){
             if (array_key_exists('HTTP_METHOD', $_GET) === true)
             {
@@ -390,11 +453,48 @@ class OData{
         }
     }
     
-    private function checkAuth($entity){
+    /**
+     * Check if it is authorized, other ways send error
+     */
+    protected function checkAuth($entity){
         if ($this->config->checkAuth($_SERVER['REQUEST_METHOD'],$entity))
             ODataHTTP::error(ODataHTTP::E_unauthorized,"You must autenticate first");
     }
     
+    /**
+     * If this operation is called from command line, send error
+     */
+    protected function checkCli(){
+        if (strcmp(PHP_SAPI, 'cli') === 0){
+            exit('OData cannot be runned from commandline.' . PHP_EOL);
+        }
+    }
+    
+    /**
+     * 
+     * @param ODataRequest $request
+     * @return ODataSchemeEntity
+     */
+    protected function prepareOperation(ODataRequest $request){
+        //Get table from entity
+        $entity=$this->config->entityAlias($request->getEntity());
+        
+        //Get scheme
+        /* @var $tableScheme ODataSchemeEntity */
+        $entityScheme=$this->getEntityScheme($entity);
+        
+        //TODO: Ofuscade Id
+        
+        //Check if operation is allowed
+        if (!$this->config->allow($request))
+            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation");
+	
+        //Check if operation is allowed for this entity
+        if (!$entityScheme->security_allowedMethod($request->getMethod()))
+            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation for ".$tableScheme->getName());
+        
+        return $entityScheme;
+    } 
   
 }
 

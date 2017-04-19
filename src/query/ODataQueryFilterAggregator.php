@@ -1,48 +1,29 @@
 <?php
 
-class ODataQueryFilterAggregator{
+class ODataQueryFilterAggregator extends ODataQueryFilterBase{
     private $left;
     private $rigth;
     private $op;
     
-    public function parse($tokens){
-        $found=false;
-        $left=[];
-        $right=[];
-        
-        foreach ($tokens as $token){
-            if (!$found){
-                switch($token){
-                    case "or":
-                    case "and":
-                        $this->op=$token;
-                        $found=true;
-                    break;
-                    default:
-                     $left[]=$token;  
-                }
-            }
-            else{
-                $right[]=$token;
-            }
-        }
-        
-        $this->left=new ODataQueryFilterComparator();
-        $this->left->parse($left);
-        
-        if (count($right)>0){
-            $this->rigth=new ODataQueryFilterAggregator();
-            $this->rigth->parse($right);
-        }
-    }
+    /**
+     * And operation
+     */
+    const OP_AND="and";
+    
+    /**
+     * Or operation
+     */
+    const OP_OR="or";
+    
     
     /**
      * 
      * @param type $list
      * @return ODataQueryFilterAggregator
      */
-    public static function CreateAndList($list){
+    public static function CreateAndList($list,$op=ODataQueryFilterAggregator::OP_AND){
         $agregator=new ODataQueryFilterAggregator();
+        $agregator->op=$op;
         $agregator->left=$list[0];
         array_shift($list);
         if (count($list)>0){
@@ -52,16 +33,70 @@ class ODataQueryFilterAggregator{
         return $agregator;
     }
     
+    /**
+     * Fuses two QueryFilter in one agregator
+     * @param ODataQueryFilterBase $ag1
+     * @param ODataQueryFilterBase $ag2
+     * @param string $op
+     * @return \ODataQueryFilterAggregator
+     */
+    public static function union(ODataQueryFilterBase $ag1,ODataQueryFilterBase $ag2,$op=ODataQueryFilterAggregator::OP_AND){
+        $union=new ODataQueryFilterAggregator();
+        $union->setLeft($ag1);
+        $union->setRight($ag2);
+        $union->setOp(ODataQueryFilterAggregator::OP_AND);
+        
+        return $union;
+    }
+    
+    /**
+     * Set left item
+     * @param ODataQueryFilterBase $left
+     */
+    public function setLeft(ODataQueryFilterBase $left){
+        $this->left=$left;
+    }
+    
+    /**
+     * Set rigth item
+     * @param ODataQueryFilterBase $left
+     */
+    public function setRight(ODataQueryFilterBase $rigth){
+        $this->rigth=$rigth;
+    }
+    
+    /**
+     * Set boolean operation
+     * @param string $op
+     */
+    public function setOp($op){
+        $this->op=$op;
+    }
+    
+    /**
+     * Get left item
+     * @return ODataQueryFilterBase
+     */
     public function getLeft(){
         return $this->left;
     }
     
+    /**
+     * Get right item
+     * @return ODataQueryFilterBase
+     */
     public function getRight(){
         return $this->rigth;
     }
     
+    /**
+     * Get operation
+     * @return string
+     */
     public function getOp(){
         return $this->op;
     }
+    
+    
 }
 

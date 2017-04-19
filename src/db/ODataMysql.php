@@ -13,6 +13,7 @@ class ODataMysql extends ODataDBAdapter{
                     \PDO::MYSQL_ATTR_USE_BUFFERED_QUERY => true,
                 )
         );
+        
     }
     
     function __construct($dns,$user,$password,$options) {
@@ -59,17 +60,27 @@ class ODataMysql extends ODataDBAdapter{
                 throw new Exception("Operation ".$comparator->getOp()." not implemnted in \$filter",ODataHTTP::E_not_implemented);
         }
         
-        $query.="'".$comparator->getRight()."'";
+        if ($comparator->getRight()[0]!="'")
+            $query.="'".$comparator->getRight()."'";
+        else
+            $query.=$comparator->getRight();
         
         return $query;
     }
     
+    private function processFilterBase(ODataQueryFilterBase $filter){
+        if ($filter instanceof ODataQueryFilterAggregator)
+            return $this->processFilterAggregator($filter);
+        else
+            return $this->processFilterComparator($filter);
+    }
+    
     private function processFilterAggregator(ODataQueryFilterAggregator $aggregator){
-        $query="(";
-        $query.=$this->processFilterComparator($aggregator->getLeft());
+        $query="(".$this->processFilterBase($aggregator->getLeft());
         
         if ($aggregator->getRight()){
-            $query.=" ".$aggregator->getOp()." '".$this->processFilterAggregator($aggregator->getRight())."'";
+            //$query.=" ".$aggregator->getOp()." '".$this->processFilterAggregator($aggregator->getRight())."'";
+            $query.=" ".$aggregator->getOp()." ".$this->processFilterBase($aggregator->getRight());
         }
         
         $query.=")";
@@ -77,8 +88,29 @@ class ODataMysql extends ODataDBAdapter{
         return $query;
     }
     
-    public function internalQuery(){
+    /**
+     * Prepare orderby
+     * @param ODataQueryOrderBy[] $list
+     * @return string
+     */
+    private function prepareOrderBy($orderByList){
+        //TODO
+        $items=[];
+        foreach($orderByList as $orderBy){
+            if ($orderBy->getOrder()== ODataQueryOrderBy::ASC)
+                $direction="ASC";
+            else
+                $direction="DESC";
+            
+            $items[]=$orderBy->getField()." ".$direction;
+        }
         
+        
+        return join(",", $items);
+    }
+    
+    public function internalQuery(){
+        //TODO
     }
     
     public function query(ODataQuery $query){
@@ -115,6 +147,12 @@ class ODataMysql extends ODataDBAdapter{
         if ($whereString!="")
             $queryString.=" WHERE ".$whereString;
         
+        //Add order
+        $orderByList=$query->getOrderByList();
+        if ($orderByList!=null)
+            $queryString.=" ORDER BY ".$this->prepareOrderBy($orderByList->getList());
+        
+        
         //Set top
         if ($query->getTop())
             $queryString.=" LIMIT ".$query->getTop();
@@ -123,19 +161,13 @@ class ODataMysql extends ODataDBAdapter{
         if ($query->getSkip())
             $queryString.=" OFFSET ".$query->getSkip();
          
+        //var_dump($queryString);
+        
         //Send query
         $stmt=$this->db->prepare($queryString) ;
         $stmt -> execute();
         
-        $scheme=$this->discoverTableScheme($query->getFrom());
-        
-        $result=[];
-        foreach ($stmt->fetchAll() as $item){
-            
-            $result[]=$scheme->createElementFromSource($item);
-        }
-        
-        return $result;
+        return $stmt->fetchAll();
     }
     
     public function insert($element, $table){
@@ -175,8 +207,11 @@ class ODataMysql extends ODataDBAdapter{
             //TODO : Check result and throw exception if fails
             
             //Create element and return it
+            /*
             $element=$scheme->createElementFromSource($stmt->fetch());
             return $element;
+            */
+            return $stmt->fetch();
         }
         else{
             throw new Exception("Cannot insert into $table. ".json_encode($this->db->errorInfo()),500);

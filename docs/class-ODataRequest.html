@@ -38,27 +38,42 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-OData.html">OData</a></li>
+				<li><a href="class-ODataCrypt.html">ODataCrypt</a></li>
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
+				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
+				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
 				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
 				<li><a href="class-ODataQueryExand.html">ODataQueryExand</a></li>
 				<li><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></li>
+				<li><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></li>
 				<li><a href="class-ODataQueryFilterComparator.html">ODataQueryFilterComparator</a></li>
 				<li><a href="class-ODataQueryFilterOperation.html">ODataQueryFilterOperation</a></li>
+				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
+				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li class="active"><a href="class-ODataRequest.html">ODataRequest</a></li>
 				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
+				<li><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a></li>
 				<li><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></li>
+				<li><a href="class-ODataSchemeEntityGeneralTools.html">ODataSchemeEntityGeneralTools</a></li>
+				<li><a href="class-Purchase.html">Purchase</a></li>
+				<li><a href="class-PurchaseProduct.html">PurchaseProduct</a></li>
+				<li><a href="class-User.html">User</a></li>
 			</ul>
 
 
 
 
 
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-execute.html">execute</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
@@ -117,7 +132,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataRequest.html#5-81" title="Go to source code">src/io/ODataRequest.php</a>
+			<b>Located at</b> <a href="source-class-ODataRequest.html#5-92" title="Go to source code">src/io/ODataRequest.php</a>
 		<br>
 	</div>
 
@@ -137,7 +152,37 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataRequest.html#22-64" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
+		<code><a href="source-class-ODataRequest.html#22-28" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="prepare" id="_prepare">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_prepare">#</a>
+		<code><a href="source-class-ODataRequest.html#30-74" title="Go to source code">prepare</a>( <span> <var>$method</var></span>, <span> <var>$entityQueryStr</var></span>, <span> <var>$body</var></span> )</code>
 
 		<div class="description short">
 			
@@ -167,7 +212,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEntity">#</a>
-		<code><a href="source-class-ODataRequest.html#66" title="Go to source code">getEntity</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#76" title="Go to source code">getEntity</a>( )</code>
 
 		<div class="description short">
 			
@@ -197,7 +242,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPk">#</a>
-		<code><a href="source-class-ODataRequest.html#67" title="Go to source code">getPk</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#77" title="Go to source code">getPk</a>( )</code>
 
 		<div class="description short">
 			
@@ -227,7 +272,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-ODataRequest.html#68" title="Go to source code">getMethod</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#78" title="Go to source code">getMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -257,7 +302,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBody">#</a>
-		<code><a href="source-class-ODataRequest.html#69" title="Go to source code">getBody</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#79" title="Go to source code">getBody</a>( )</code>
 
 		<div class="description short">
 			
@@ -287,7 +332,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilter">#</a>
-		<code><a href="source-class-ODataRequest.html#72" title="Go to source code">getFilter</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#82" title="Go to source code">getFilter</a>( )</code>
 
 		<div class="description short">
 			
@@ -317,7 +362,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExpand">#</a>
-		<code><a href="source-class-ODataRequest.html#73" title="Go to source code">getExpand</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#83" title="Go to source code">getExpand</a>( )</code>
 
 		<div class="description short">
 			
@@ -347,7 +392,37 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSelect">#</a>
-		<code><a href="source-class-ODataRequest.html#74" title="Go to source code">getSelect</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#84" title="Go to source code">getSelect</a>( )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getOrderBy" id="_getOrderBy">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getOrderBy">#</a>
+		<code><a href="source-class-ODataRequest.html#85" title="Go to source code">getOrderBy</a>( )</code>
 
 		<div class="description short">
 			
@@ -377,7 +452,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getTop">#</a>
-		<code><a href="source-class-ODataRequest.html#75" title="Go to source code">getTop</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#86" title="Go to source code">getTop</a>( )</code>
 
 		<div class="description short">
 			
@@ -407,7 +482,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSkip">#</a>
-		<code><a href="source-class-ODataRequest.html#76" title="Go to source code">getSkip</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#87" title="Go to source code">getSkip</a>( )</code>
 
 		<div class="description short">
 			
@@ -437,7 +512,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCount">#</a>
-		<code><a href="source-class-ODataRequest.html#77" title="Go to source code">getCount</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#88" title="Go to source code">getCount</a>( )</code>
 
 		<div class="description short">
 			
@@ -467,7 +542,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSearch">#</a>
-		<code><a href="source-class-ODataRequest.html#78" title="Go to source code">getSearch</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#89" title="Go to source code">getSearch</a>( )</code>
 
 		<div class="description short">
 			
@@ -497,7 +572,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFormat">#</a>
-		<code><a href="source-class-ODataRequest.html#79" title="Go to source code">getFormat</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#90" title="Go to source code">getFormat</a>( )</code>
 
 		<div class="description short">
 			
@@ -542,6 +617,6 @@
 </div>
 </div>
 <script src="resources/combined.js?c634dd9bb5d0fd0116fea64ea3410146157a161a"></script>
-<script src="elementlist.js?b2861c5e28f7129d77bc2770facbcb29ec66e519"></script>
+<script src="elementlist.js?9d745eb6fee7486add9e5706e59b99f0822036b7"></script>
 </body>
 </html>

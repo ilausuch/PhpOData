@@ -21,8 +21,12 @@ class ODataDBAdapter{
     
     public function connect(){
         if (!$this->connected){
-            $this->db = new \PDO($this->dsn,$this->user,$this->password,$this->options);
-            $this->connected=true;
+            try {
+                $this->db = new \PDO($this->dsn,$this->user,$this->password,$this->options);
+                $this->connected=true;
+            }catch(PDOException $e) {
+                ODataHTTP::error (ODataHTTP::E_internal_error, "Cannot connect to DB");
+            }
         }
     }
     

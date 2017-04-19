@@ -22,10 +22,12 @@ class ODataHTTP{
     
     
     private static function createMetadata(){
-        $split=split("/",$_SERVER["REQUEST_URI"]);
+        $split=split("\?",$_SERVER["REQUEST_URI"]);
+        $split=split("/",$split[0]);
         
         $entityName=$split[count($split)-1];
-        $entityName=split("\(",$entityName)[0];
+        preg_match("/(\w+)/", $entityName, $output_array);
+        $entityName=$output_array[0];
         
         unset($split[count($split)-1]);
         $odataPath=join("/", $split);

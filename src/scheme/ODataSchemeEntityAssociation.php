@@ -17,6 +17,16 @@ class ODataSchemeEntityAssociation {
     private $relationType;
     private $relationFields;
     
+    const MULTIPLE="multiple";
+    const SINGLE="single";
+    
+    /**
+     * Create a new association
+     * @param string $associated
+     * @param string $field
+     * @param string $relationType
+     * @param ODataSchemeEntityAssociationRelationField[] $relationFields
+     */
     function __construct($associated,$field,$relationType,$relationFields) {
         $this->associated=$associated;
         $this->field=$field;
@@ -48,10 +58,10 @@ class ODataSchemeEntityAssociation {
     }
     
     public function isMultiple(){
-        return $this->relationType==="multiple";
+        return $this->relationType=== ODataSchemeEntityAssociation::MULTIPLE;
     }
     
     public function isSingle(){
-        return $this->relationType==="single";
+        return $this->relationType===ODataSchemeEntityAssociation::SINGLE;
     }
 }

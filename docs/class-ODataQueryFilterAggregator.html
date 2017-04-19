@@ -38,27 +38,42 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-OData.html">OData</a></li>
+				<li><a href="class-ODataCrypt.html">ODataCrypt</a></li>
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
+				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
+				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
 				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
 				<li><a href="class-ODataQueryExand.html">ODataQueryExand</a></li>
 				<li class="active"><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></li>
+				<li><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></li>
 				<li><a href="class-ODataQueryFilterComparator.html">ODataQueryFilterComparator</a></li>
 				<li><a href="class-ODataQueryFilterOperation.html">ODataQueryFilterOperation</a></li>
+				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
+				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
 				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
+				<li><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a></li>
 				<li><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></li>
+				<li><a href="class-ODataSchemeEntityGeneralTools.html">ODataSchemeEntityGeneralTools</a></li>
+				<li><a href="class-Purchase.html">Purchase</a></li>
+				<li><a href="class-PurchaseProduct.html">PurchaseProduct</a></li>
+				<li><a href="class-User.html">User</a></li>
 			</ul>
 
 
 
 
 
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-execute.html">execute</a></li>
+			</ul>
 		</div>
 	</div>
 </div>
@@ -102,7 +117,24 @@
 	<h1>Class ODataQueryFilterAggregator</h1>
 
 
+	<div class="description">
+	<p>Description of ODataQueryFilterBase</p>
+	</div>
 
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ODataQueryFilterBase.html"><span>ODataQueryFilterBase</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>ODataQueryFilterAggregator</span></b>			
+			
+			
+		</dd>
+	</dl>
 
 
 
@@ -117,7 +149,9 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataQueryFilterAggregator.html#3-66" title="Go to source code">src/query/ODataQueryFilterAggregator.php</a>
+				<b>Author:</b>
+				ilausuch<br>
+			<b>Located at</b> <a href="source-class-ODataQueryFilterAggregator.html#3-101" title="Go to source code">src/query/ODataQueryFilterAggregator.php</a>
 		<br>
 	</div>
 
@@ -125,36 +159,6 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="parse" id="_parse">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_parse">#</a>
-		<code><a href="source-class-ODataQueryFilterAggregator.html#8-37" title="Go to source code">parse</a>( <span> <var>$tokens</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="CreateAndList" id="_CreateAndList">
 
 		<td class="attributes"><code>
@@ -167,7 +171,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_CreateAndList">#</a>
-		<code><a href="source-class-ODataQueryFilterAggregator.html#39-53" title="Go to source code">CreateAndList</a>( <span>type <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#19-34" title="Go to source code">CreateAndList</a>( <span>type <var>$list</var></span>, <span> <var>$op</var> = ODataQueryFilterAggregator::OP_AND</span> )</code>
 
 		<div class="description short">
 			
@@ -180,6 +184,8 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$list</var></dt>
+					<dd></dd>
+					<dt><var>$op</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -194,7 +200,50 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="getLeft" id="_getLeft">
+	<tr data-order="union" id="_union">
+
+		<td class="attributes"><code>
+			 public static
+
+			<code><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_union">#</a>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#36-50" title="Go to source code">union</a>( <span><code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code> <var>$ag1</var></span>, <span><code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code> <var>$ag2</var></span>, <span>string <var>$op</var> = ODataQueryFilterAggregator::OP_AND</span> )</code>
+
+		<div class="description short">
+			<p>Fuses two QueryFilter in one agregator</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Fuses two QueryFilter in one agregator</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$ag1</var></dt>
+					<dd></dd>
+					<dt><var>$ag2</var></dt>
+					<dd></dd>
+					<dt><var>$op</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setLeft" id="_setLeft">
 
 		<td class="attributes"><code>
 			 public 
@@ -205,18 +254,127 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_getLeft">#</a>
-		<code><a href="source-class-ODataQueryFilterAggregator.html#55-57" title="Go to source code">getLeft</a>( )</code>
+		<a class="anchor" href="#_setLeft">#</a>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#52-58" title="Go to source code">setLeft</a>( <span><code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code> <var>$left</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Set left item</p>
 		</div>
 
 		<div class="description detailed hidden">
+			<p>Set left item</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$left</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setRight" id="_setRight">
+
+		<td class="attributes"><code>
+			 public 
+
 			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setRight">#</a>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#60-66" title="Go to source code">setRight</a>( <span><code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code> <var>$rigth</var></span> )</code>
+
+		<div class="description short">
+			<p>Set rigth item</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set rigth item</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$rigth</var></dt>
+					<dd>$left</dd>
+				</dl></div>
 
 
 
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="setOp" id="_setOp">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setOp">#</a>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#68-74" title="Go to source code">setOp</a>( <span>string <var>$op</var></span> )</code>
+
+		<div class="description short">
+			<p>Set boolean operation</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set boolean operation</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$op</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getLeft" id="_getLeft">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getLeft">#</a>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#76-82" title="Go to source code">getLeft</a>( )</code>
+
+		<div class="description short">
+			<p>Get left item</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Get left item</p>
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code>
+				</div>
 
 
 
@@ -229,24 +387,28 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			<code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code>
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRight">#</a>
-		<code><a href="source-class-ODataQueryFilterAggregator.html#59-61" title="Go to source code">getRight</a>( )</code>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#84-90" title="Go to source code">getRight</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Get right item</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Get right item</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></code>
+				</div>
 
 
 
@@ -259,24 +421,28 @@
 		<td class="attributes"><code>
 			 public 
 
-			
+			string
 			
 			</code>
 		</td>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOp">#</a>
-		<code><a href="source-class-ODataQueryFilterAggregator.html#63-65" title="Go to source code">getOp</a>( )</code>
+		<code><a href="source-class-ODataQueryFilterAggregator.html#92-98" title="Go to source code">getOp</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Get operation</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Get operation</p>
 
 
 
+				<h4>Returns</h4>
+				<div class="list">
+					string
+				</div>
 
 
 
@@ -286,6 +452,14 @@
 	</tr>
 	</table>
 
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ODataQueryFilterBase.html#methods">ODataQueryFilterBase</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ODataQueryFilterBase.html#_parse2">parse2()</a>
+		</code></td>
+	</tr>
+	</table>
 
 
 
@@ -293,6 +467,57 @@
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="OP_AND" id="OP_AND">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-OP_AND.html#8-11" title="Go to source code"><b>OP_AND</b></a>
+			</code>
+
+			<div class="description short">
+				<p>And operation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>And operation</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_AND" class="anchor">#</a>
+				<code><span class="php-quote">&quot;and&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="OP_OR" id="OP_OR">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-constant-OP_OR.html#13-16" title="Go to source code"><b>OP_OR</b></a>
+			</code>
+
+			<div class="description short">
+				<p>Or operation</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Or operation</p>
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#OP_OR" class="anchor">#</a>
+				<code><span class="php-quote">&quot;or&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
@@ -311,6 +536,6 @@
 </div>
 </div>
 <script src="resources/combined.js?c634dd9bb5d0fd0116fea64ea3410146157a161a"></script>
-<script src="elementlist.js?b2861c5e28f7129d77bc2770facbcb29ec66e519"></script>
+<script src="elementlist.js?9d745eb6fee7486add9e5706e59b99f0822036b7"></script>
 </body>
 </html>

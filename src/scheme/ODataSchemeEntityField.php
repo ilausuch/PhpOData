@@ -35,6 +35,11 @@ class ODataSchemeEntityField{
         return $this->type;
     }
     
+    public function getTypeSimplified(){
+        preg_match("/(?P<name>\w+)/", $this->type, $output_array);
+        return $output_array["name"];
+    }
+    
     public function getAllowNulls(){
         return $this->allowNulls;
     }

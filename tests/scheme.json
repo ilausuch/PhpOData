@@ -1,6 +1,11 @@
 {
     "entities": {
         "User":{
+            "visibleFields":"*",
+            "hiddenFields":["id"],
+            "methodsAllowed":"*",
+            "methodsDisabled":["DELETE","EXPAND"],
+            "table":"User",
             "associations":{
                 "Sensor":{
                     "associated":"Sensor",

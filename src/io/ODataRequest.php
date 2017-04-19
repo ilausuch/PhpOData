@@ -20,19 +20,23 @@ class ODataRequest{
     
     
     function __construct(Request $request) {
-        $this->method=$request->getMethod();
-                
-        //Get entity
-        $entity=$request->getAttribute('entityStr');
+        $this->prepare(
+                $request->getMethod(),
+                $request->getAttribute('entityQueryStr'),
+                $request->getBody()->read(1000000));
         
-        //Get body
-        $this->body=$request->getBody()->read(1000000);
-                
+    }
+    
+    protected function prepare($method,$entityQueryStr,$body){
+        $this->method=$method;
+        $this->body=$body;
+        
         //Check for ID
-        $rex="/^(?P<entity>\w+)(\(((?P<id>\w+)|guid'(?P<guid>[\w-]+)')\))?$/i";
-            
-        if (!preg_match($rex, $entity, $matches)){
-            ODataHTTP::error(ODataHTTP::E_bad_request);
+        $rex="/^(?P<entity>\w+)(\(((?P<id>\w+)|guid'(?P<guid>[\w-]+)'|'(?P<ids>[\w-=\+\\/]+)')\))?$/i";
+        //$rex="/^(?P<entity>\w+)\((?P<id>\w+)|guid'(?P<guid>[\w-]+)'|'(?P<ids>[\w-=\+\\/]+)'\)$/i";
+        
+        if (!preg_match($rex, $entityQueryStr, $matches)){
+            ODataHTTP::error(ODataHTTP::E_bad_request,"Invalid URL OData format: ".$entityQueryStr);
         }
         
         $this->entity=$matches["entity"];
@@ -44,12 +48,17 @@ class ODataRequest{
             $this->pk[]=$matches["guid"];
             $this->isGuid=true;
         }
-        else{
-            if (isset($matches["id"]) && $matches["id"]!=""){
-                $this->pk[]=$matches["id"];
+        else
+            if (isset($matches["ids"]) && $matches["ids"]!=""){
+                $this->pk[]=$matches["ids"];
                 $this->isGuid=false;
             }
-        }
+            else
+                if (isset($matches["id"]) && $matches["id"]!=""){
+                    $this->pk[]=$matches["id"];
+                    $this->isGuid=false;
+                }
+        
         
         $this->filter=$_GET["\$filter"];
         $this->expand=$_GET["\$expand"];
@@ -60,6 +69,7 @@ class ODataRequest{
         $this->count=$_GET["\$count"];
         $this->search=$_GET["\$search"];
         $this->format=$_GET["\$format"];
+        
         
     }
     
@@ -72,6 +82,7 @@ class ODataRequest{
     public function getFilter() {return $this->filter;}
     public function getExpand() {return $this->expand;}
     public function getSelect() {return $this->select;}
+    public function getOrderBy() {return $this->orderby;}
     public function getTop() {return $this->top;}
     public function getSkip() {return $this->skip;}
     public function getCount() {return $this->count;}
