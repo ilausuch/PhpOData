@@ -225,7 +225,7 @@ class ODataSchemeEntity{
      * @return boolean
      */
     public function security_allowedMethod($method){
-        return in_array($method,OData::$object->getOptions()->$defaultAllowedMethods);
+        return in_array($method,OData::$object->getConfig()->defaultAllowedMethods);
     }
     
     /**

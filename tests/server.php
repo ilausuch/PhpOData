@@ -43,7 +43,7 @@ $scheme=ODataScheme::parse($json);
 
 //Start odata server
 $odata=new OData($db,$options,$scheme);
-$odata->execute(true);
+$odata->run(true);
 
 /*
  * Examples

@@ -133,7 +133,7 @@ class OData{
      * Execute the service
      * @param boolean $debug If is in debug mode or not
      */
-    public function execute($debug=false){
+    public function run($debug=false){
         $app = new \Slim\App([
             "debug"=>$debug
         ]);
@@ -141,30 +141,37 @@ class OData{
         $container=$app->getContainer();
         $container["odata"]=$this;
         
-        $app->any('/odata/{entityQueryStr}', function (Request $requestSlim, Response $responseSlim,$args) {
-                    
-            //Check cli
-            OData::$object->checkCli();
-
-            // Allow from any origin
-            OData::$object->allowAnyOrigin();
-            
-            // Access-Control headers are received during OPTIONS requests
-            OData::$object->enableOptionsRequest();
-
-            //Check clients
-            OData::$object->checkClients();
-
-            //Query options modifiers
-            OData::$object->queryMethodModifiers();
-            
-            //Run server
-            $this->odata->serve(new ODataRequest($requestSlim));
-            
-            return $responseSlim;
-        });
+        $this->setSlimRule($app);
         
         $app->run();
+    }
+    
+    public function setSlimRule($app){
+        $app->any('/odata/{entityQueryStr}', function (Request $requestSlim, Response $responseSlim,$args) {
+            return OData::$object->execute($requestSlim, $responseSlim, $args);
+        });
+    }
+    
+    public function execute(Request $requestSlim, Response $responseSlim,$args){
+        //Check cli
+        $this->checkCli();
+
+        // Allow from any origin
+        $this->allowAnyOrigin();
+
+        // Access-Control headers are received during OPTIONS requests
+        $this->enableOptionsRequest();
+
+        //Check clients
+        $this->checkClients();
+
+        //Query options modifiers
+        $this->queryMethodModifiers();
+
+        //Run server
+        $this->serve(new ODataRequest($requestSlim));
+
+        return $responseSlim;
     }
     
     /**
@@ -259,7 +266,9 @@ class OData{
         
         
         //Set internal Order
-        $query->setOrder($scheme->query_db_orderby());
+        $orderby=$scheme->query_db_orderby();
+        if ($orderby!=null)
+            $query->setOrder($orderby);
         
         
         //Top or Limits
