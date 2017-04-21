@@ -1,14 +1,13 @@
 {
-    "name": "vendor/arrest-d-b",
-    "description": "Description of project ArrestDB.",
+    "name": "vendor/php-o-data",
+    "description": "Description of project PhpOData.",
     "authors": [
         {
-            "name": "ilausuch",
-            "email": "your@email.here"
+            "name": "Ivan Lausuch Sales",
+            "email": "ilausuch@gmail.com"
         }
     ],
     "require": {
-        "slim/slim": "3.8.1",
-        "apigen/apigen": "v4.2.0-RC1"
+        "slim/slim": "3.8.1"
     }
 }
