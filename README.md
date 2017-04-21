@@ -42,6 +42,8 @@ PhpOData server requires and it is tested on:
  - PHP 5.5.38
  - SLIM framework 3.8.1
 
+ApiGet library is not needed. It is only for documentation purpose.
+
 # Configuration
 ## DB connector
 
@@ -319,15 +321,16 @@ TODO
 ### Defining orderby
 TODO
 
-## Tools
 
-### ODataSchemeEntityGeneralTools
+# Tools
+
+## ODataSchemeEntityGeneralTools
 TODO
 
-### ODataCrypt
+## ODataCrypt
 TODO
 
-### ODataContext
+## ODataContext
 TODO
 
 ## Define your own DB connector
