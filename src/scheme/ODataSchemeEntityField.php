@@ -1,15 +1,49 @@
 <?php
 
 class ODataSchemeEntityField{
+    /**
+     * Name of field
+     * @var string
+     */
     private $name;
+    
+    /**
+     * If it is primary key
+     * @var boolean
+     */
     private $pk;
+    
+    /**
+     * Type of field
+     * @var ODataSchemePrimitive
+     */
     private $type;
+    
+    /**
+     * True if allows nulls
+     * @var boolean 
+     */
     private $allowNulls;
+    
+    /**
+     * Length of field
+     * @var int
+     */
     private $len;
+    
+    /**
+     * Default value
+     * @var any
+     */
     private $defaultValue;
+    
+    /**
+     * Extra information
+     * @var any
+     */
     private $extra;
     
-    function __construct($name,$type,$allowNulls,$len,$isPk,$defaultValue,$extra){
+    function __construct($name,ODataSchemePrimitive $type,$allowNulls,$len,$isPk,$defaultValue,$extra){
         $this->name=$name;
         $this->type=$type;
         $this->allowNulls=$allowNulls;
@@ -17,10 +51,6 @@ class ODataSchemeEntityField{
         $this->pk=$isPk;
         $this->defaultValue=$defaultValue;
         $this->extra=$extra;
-    }
-    
-    public static function parse($config){
-        //TODO : Parse field
     }
     
     public function isPk(){
@@ -33,11 +63,6 @@ class ODataSchemeEntityField{
     
     public function getType(){
         return $this->type;
-    }
-    
-    public function getTypeSimplified(){
-        preg_match("/(?P<name>\w+)/", $this->type, $output_array);
-        return $output_array["name"];
     }
     
     public function getAllowNulls(){

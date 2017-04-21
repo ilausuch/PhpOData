@@ -18,9 +18,9 @@ require_once("scheme/ODataSchemeEntity.php");
 require_once("scheme/ODataSchemeEntityField.php");
 require_once("scheme/ODataSchemeEntityAssociation.php");
 require_once("scheme/ODataSchemeEntityAssociationRelationField.php");
+require_once("scheme/ODataSchemePrimitive.php");
 require_once("io/ODataHTTP.php");
 require_once("io/ODataRequest.php");
-require_once("io/ODataResponse.php");
 require_once("query/ODataQuery.php");
 require_once("query/ODataQueryFilterBase.php");
 require_once("query/ODataQueryFilterAggregator.php");
@@ -33,6 +33,8 @@ require_once("config/ODataOptions.php");
 require_once("tools/ODataCrypt.php");
 require_once("tools/ODataSchemeEntityGeneralTools.php");
 require_once("tools/ODataFilterParser.php");
+require_once("tools/ODataContext.php");
+
 
 class OData{
     
@@ -42,10 +44,31 @@ class OData{
      */
     public static $object;
     
+    /**
+     * The configuration options
+     * @var ODataOptions 
+     */
     protected $config;
+    
+    /**
+     * the DB adapter
+     * @var ODataDBAdapter
+     */
     protected $db;
+    
+    /**
+     * The scheme
+     * @var ODataScheme
+     */
     protected $scheme;
     
+    /**
+     * The context
+     * @var ODataContext
+     */
+    private $context;
+
+
     /**
      * Constructor
      * @param ODataDBAdapter $db Datadase adapter
@@ -82,6 +105,15 @@ class OData{
     public function getConfig(){
         return $this->config;
     }
+    
+    /**
+     * Returns the context
+     * @return ODataContext
+     */
+    public function getContext(){
+        return $this->context;
+    }
+    
     /**
      * Returns a complete Entity Scheme convining configured scheme and DB scheme
      * @param string $entityName
@@ -98,6 +130,7 @@ class OData{
     
     /**
      * Execute the service
+     * @param boolean $debug If is in debug mode or not
      */
     public function execute($debug=false){
         $app = new \Slim\App([

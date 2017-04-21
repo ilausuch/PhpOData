@@ -38,6 +38,7 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-OData.html">OData</a></li>
+				<li><a href="class-ODataContext.html">ODataContext</a></li>
 				<li><a href="class-ODataCrypt.html">ODataCrypt</a></li>
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
@@ -54,13 +55,13 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
-				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
 				<li><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a></li>
 				<li class="active"><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></li>
 				<li><a href="class-ODataSchemeEntityGeneralTools.html">ODataSchemeEntityGeneralTools</a></li>
+				<li><a href="class-ODataSchemePrimitive.html">ODataSchemePrimitive</a></li>
 				<li><a href="class-Purchase.html">Purchase</a></li>
 				<li><a href="class-PurchaseProduct.html">PurchaseProduct</a></li>
 				<li><a href="class-User.html">User</a></li>
@@ -132,7 +133,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataSchemeEntityField.html#3-59" title="Go to source code">src/scheme/ODataSchemeEntityField.php</a>
+			<b>Located at</b> <a href="source-class-ODataSchemeEntityField.html#3-84" title="Go to source code">src/scheme/ODataSchemeEntityField.php</a>
 		<br>
 	</div>
 
@@ -152,37 +153,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#12-20" title="Go to source code">__construct</a>( <span> <var>$name</var></span>, <span> <var>$type</var></span>, <span> <var>$allowNulls</var></span>, <span> <var>$len</var></span>, <span> <var>$isPk</var></span>, <span> <var>$defaultValue</var></span>, <span> <var>$extra</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="parse" id="_parse">
-
-		<td class="attributes"><code>
-			 public static
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_parse">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#22-24" title="Go to source code">parse</a>( <span> <var>$config</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#46-54" title="Go to source code">__construct</a>( <span> <var>$name</var></span>, <span><code><a href="class-ODataSchemePrimitive.html">ODataSchemePrimitive</a></code> <var>$type</var></span>, <span> <var>$allowNulls</var></span>, <span> <var>$len</var></span>, <span> <var>$isPk</var></span>, <span> <var>$defaultValue</var></span>, <span> <var>$extra</var></span> )</code>
 
 		<div class="description short">
 			
@@ -212,7 +183,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isPk">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#26-28" title="Go to source code">isPk</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#56-58" title="Go to source code">isPk</a>( )</code>
 
 		<div class="description short">
 			
@@ -242,7 +213,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#30-32" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#60-62" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			
@@ -272,37 +243,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#34-36" title="Go to source code">getType</a>( )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="getTypeSimplified" id="_getTypeSimplified">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_getTypeSimplified">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#38-41" title="Go to source code">getTypeSimplified</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#64-66" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			
@@ -332,7 +273,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAllowNulls">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#43-45" title="Go to source code">getAllowNulls</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#68-70" title="Go to source code">getAllowNulls</a>( )</code>
 
 		<div class="description short">
 			
@@ -362,7 +303,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getLen">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#47-49" title="Go to source code">getLen</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#72-74" title="Go to source code">getLen</a>( )</code>
 
 		<div class="description short">
 			
@@ -392,7 +333,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDefaultValue">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#51-53" title="Go to source code">getDefaultValue</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#76-78" title="Go to source code">getDefaultValue</a>( )</code>
 
 		<div class="description short">
 			
@@ -422,7 +363,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExtra">#</a>
-		<code><a href="source-class-ODataSchemeEntityField.html#55-57" title="Go to source code">getExtra</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityField.html#80-82" title="Go to source code">getExtra</a>( )</code>
 
 		<div class="description short">
 			
@@ -466,7 +407,7 @@
 	</div>
 </div>
 </div>
-<script src="resources/combined.js?c634dd9bb5d0fd0116fea64ea3410146157a161a"></script>
-<script src="elementlist.js?9d745eb6fee7486add9e5706e59b99f0822036b7"></script>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
 </body>
 </html>

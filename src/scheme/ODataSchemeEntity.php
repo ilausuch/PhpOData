@@ -174,12 +174,13 @@ class ODataSchemeEntity{
         foreach($this->getFields() as $field){
             
             //Check if it is visible
-            if ($this->security_visibleField($field,$data[$field->getName()])){
+            if ($this->security_visibleField($field,$data,$data[$field->getName()])){
                 
                 //Postprocess field
                 $newElement[$field->getName()]=
                     $this->query_postprocessField(
                         $field,
+                        $element,
                         $element[$field->getName()]
                     );
             }
@@ -232,7 +233,7 @@ class ODataSchemeEntity{
      * @param ODataSchemeEntityField $field
      * @return boolean
      */
-    public function security_visibleField(ODataSchemeEntityField $field,$value){
+    public function security_visibleField(ODataSchemeEntityField $field,$entity,$value){
         return true;
     }
     
@@ -287,7 +288,7 @@ class ODataSchemeEntity{
         return null;
     } 
     
-    public function query_postprocessField(ODataSchemeEntityField $field, $value){
+    public function query_postprocessField(ODataSchemeEntityField $field, $entity, $value){
         return $value;
     }
     

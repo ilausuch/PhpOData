@@ -6,7 +6,12 @@ class ODataScheme{
     function __construct($entities=[]) {
         $this->entities=[];
         foreach ($entities as $entity)
-            $this->entities[$entity->getName()]=$entity;
+            if ($entity instanceof ODataSchemeEntity)
+                $this->entities[$entity->getName()]=$entity;
+            else if (is_string($entity))
+                $this->entities[$entity->getName()]=new ODataSchemeEntity($entity);
+            else
+                ODataHTTP::error (ODataHTTP::E_internal_error, "Invalid scheme configuration");
     }
     
     public static function parse($json){

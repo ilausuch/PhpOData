@@ -63,7 +63,7 @@ class User extends ODataSchemeEntity{
         return $entity;
     }
     
-    public function query_postprocessField(ODataSchemeEntityField $field, $value){
+    public function query_postprocessField(ODataSchemeEntityField $field, $entity,$value){
         if ($field->getName()=="name")
             return strtoupper ($value);
         else

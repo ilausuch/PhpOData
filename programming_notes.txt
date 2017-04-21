@@ -1,4 +1,15 @@
 
+==========================================================================
+TODO
+==========================================================================
+
+- Method Delete
+- Method Put (Replace)
+
+==========================================================================
+EBNF of $filter
+==========================================================================
+
 Aggregator := Expression ( LOGICAL_AGRE Aggregator )? | '(' Aggregator ')'
 Expression :=  Comparation | Function
 Comparation:= LOGICAL_NOT? VAR LOGICAL_COMP Value
@@ -18,59 +29,3 @@ NUMBER := \d+(.\d+)? | .\d+
 f(Aggretator) := f(Expresion), '(' = NOT, VAR, FNC, '('
 f(Expresion) := f(Comparation) , Pri(Function) = NOT, VAR, FNC
 f(Comparation) := NOT, VAR
-
-
-
-
-/*
-    public static function parse($str){
-        $comparator=new ODataQueryFilterComparator();
-        
-        if (preg_match("/\s*((?P<not>not)\s+)?(?P<left>\S+)\s*(?P<op>\S+)\s*(?P<right>\S+)\s*/i", $str,$matches)){
-            $comparator->not= strtolower($matches["not"])=="not";
-            $comparator->op= strtolower($matches["op"]);
-            $comparator->left=$matches["left"];
-            $comparator->right=$matches["right"];
-        }
-        else{
-            //TODO: Other filter options
-            ODataHTTP::error(E_bad_request,"Invalid comparator ".$str);
-        }
-        
-        return $comparator;
-        
-        
-    }
-    */
-
-
-    public function parse($tokens){
-        $found=false;
-        $left=[];
-        $right=[];
-        
-        foreach ($tokens as $token){
-            if (!$found){
-                switch($token){
-                    case "or":
-                    case "and":
-                        $this->op=$token;
-                        $found=true;
-                    break;
-                    default:
-                     $left[]=$token;  
-                }
-            }
-            else{
-                $right[]=$token;
-            }
-        }
-        
-        
-        $this->left=ODataQueryFilterComparator::parse(join(" ", $left));
-        
-        if (count($right)>0){
-            $this->rigth=new ODataQueryFilterAggregator();
-            $this->rigth->parse($right);
-        }
-    }

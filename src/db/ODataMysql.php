@@ -250,6 +250,55 @@ class ODataMysql extends ODataDBAdapter{
         $stmt=$this->db->prepare($queryString) ;
         $result=$stmt->execute($values);
     }
+    
+    /**
+     * Convert type to OData type
+     * https://dev.mysql.com/doc/refman/5.7/en/data-types.html
+     * https://dev.mysql.com/doc/refman/5.7/en/storage-requirements.html     
+     * @param string $type
+     * @return string
+     */
+    private function convertType($type){
+        preg_match("/(?P<name>\w+)(\((?P<len>\d+)(,(?P<len2>\d+))?\))?/", $Type, $output_array);
+            $mysqlType=$output_array["name"];
+            $mysqlLen=$output_array["len"];
+            
+            switch($mysqlType){
+                case BIT:       return ODataSchemePrimitive::Byte;
+                    
+                case TINYINT:   return ODataSchemePrimitive::Byte;
+                case SMALLINT:  return ODataSchemePrimitive::Int16;
+                case MEDIUMINT: return ODataSchemePrimitive::Int32; //Must be 24, but doesn't exist
+                case INTEGER:   return ODataSchemePrimitive::Int32;
+                case INT:       return ODataSchemePrimitive::Int32;
+                case BIGINT:    return ODataSchemePrimitive::Int64;
+                  
+                case DECIMAL:   return ODataSchemePrimitive::Decimal;
+                case NUMERIC:   return ODataSchemePrimitive::Decimal;
+                
+                case FLOAT:     return ODataSchemePrimitive::Double;
+                case DOUBLE:    return ODataSchemePrimitive::Double;
+                    
+                case CHAR:      return ODataSchemePrimitive::String;
+                case VARCHAR:   return ODataSchemePrimitive::String;
+                case TEXT:      return ODataSchemePrimitive::String;
+                
+                case BINARY:    return ODataSchemePrimitive::Stream;
+                case VARBINARY: return ODataSchemePrimitive::Stream;
+                case BLOG:      return ODataSchemePrimitive::Stream;
+                
+                case ENUM:      return ODataSchemePrimitive::String;
+                case SET:       return ODataSchemePrimitive::String;
+                    
+                case DATE:      return ODataSchemePrimitive::Date;
+                case DATETIME:  return ODataSchemePrimitive::DateTimeOffset;
+                case TIMESTAMP: return ODataSchemePrimitive::DateTimeOffset;
+                    
+                case TIME:    return ODataSchemePrimitive::TimeOfDay;
+                case YEAR:    return ODataSchemePrimitive::Byte;
+            }
+    }
+    
     /*
      * Extract table scheme from DB
      * @return ODataSchemeEntity The scheme
@@ -266,7 +315,7 @@ class ODataMysql extends ODataDBAdapter{
         foreach ($stmt->fetchAll() as $field){
             $fields[]=new ODataSchemeEntityField(
                 $field["Field"],
-                $field["Type"], //TODO: Get only type
+                new ODataSchemePrimitive($this->convertType($field["Type"])),
                 $field["Null"]=="YES",
                 0, //TODO: Extract from type
                 $field["Key"]=="PRI",
