@@ -79,6 +79,7 @@ class OData{
         $this->db=$db;
         $this->config=$config;
         $this->scheme=$scheme;
+        $this->context=new ODataContext();
         OData::$object=$this;
     }
     
