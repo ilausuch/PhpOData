@@ -25,7 +25,7 @@ $scheme=new ODataScheme(["User","Product"]);
 
 //Start odata server
 $odata=new OData($db,$options,$scheme);
-$odata->execute();
+$odata->run();
 ```
 
 There are four steps:
@@ -223,7 +223,7 @@ public function security_preprocesInputField(ODataSchemeEntityField $field, $val
 ```
 
 #### query_db_conditions() : ODataQueryFilterAggregator
-Returns an aggregator for query forced conditions in DB query. Alternativelly you can filter the result using postProcess methods
+Returns an aggregator for query forced conditions in DB query. Alternatively you can filter the result using postProcess methods
 
 For instance, normal use only can list active products, admin, all of them
 
@@ -242,7 +242,7 @@ Note: see ODataQueryFilterAggregator and ODataFilterParser for more information
 
 #### query_db_orderby() : ODataQueryOrderByList
 
-Returns a list of orderby elements to sort the result in DB query. Alternativelly you can filter the result using postProcess methods
+Returns a list of orderby elements to sort the result in DB query. Alternatively you can filter the result using postProcess methods
 
 For instance, You can order the Product list by price from expensive to cheeper from DB
 
@@ -324,16 +324,33 @@ TODO
 
 # Tools
 
+## ODataContext
+
+This is usefull to store information than schemes will use for their operations. For instance the validated user
+
+To get the context
+
+	OData::$object->getContext();
+
+Operations
+
+set(\$name,\$value)
+: Add or replace an element by \$name
+
+get(\$name)
+: Get the element by \$name 
+
+
+
 ## ODataSchemeEntityGeneralTools
 TODO
 
 ## ODataCrypt
 TODO
 
-## ODataContext
-TODO
 
-## Define your own DB connector
+
+# Define your own DB connector
 TODO
 
 # License
