@@ -4,6 +4,8 @@ This is an automatic OData exposition of DB entities with security and tranforma
 
 # Quick start
 
+## Prepare OData server
+
 Basic example:
 
 ```php
@@ -34,6 +36,35 @@ There are four steps:
  2. Create Options configuration
  3. Create Scheme
  4. Create and launch server
+
+## Calling OData server
+
+Current implemented methods are:
+
+ - GET: Execuete a query to get one or a list of elements
+ - POST: Add a new element
+ - PATCH: Modify an element
+ - DELETE: Delete an element
+
+### Some get examples
+
+/User
+: Gets the list of all users
+
+/User(1)
+: Get the user with ID 1
+
+/User?$filter=Id eq 1
+: Equivalent to /User(1)
+
+/User(1)?$expand=PurchaseList/Purchase
+: Get user User with Id 1 and its purchases list
+
+/User?$orderby=name,id desc
+: Get all users odering by name asscending, and for the same name, usign id descending
+
+For full specifications and more examples follow [odata.org](odata.org)
+
 
 # Pre-requisites
 
@@ -146,12 +177,6 @@ You can overwride the methods you need:
 #### security_allowedMethod(\$method) : bool
 
 This is used to ensure that can execute a method over this scheme. Returns true if method is allowed, other ways false. By default uses defaultAllowedMethods from configuration options.
-
-Current implemented methods are:
-
- - GET
- - POST
- - PATCH
 
 In this example only when the user is admin all methods are allowed, other ways only get is allowed.
 
