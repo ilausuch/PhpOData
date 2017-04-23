@@ -1,6 +1,8 @@
 # PhpOData
 
-This is an automatic OData exposition of DB entities with security and tranformation addons.
+Automatic OData Restful exposition of DB entities with security, transformations & other add-ons.
+
+OData specification on [odata.org](odata.org)
 
 # Quick start
 
@@ -63,7 +65,6 @@ Current implemented methods are:
 /User?$orderby=name,id desc
 : Get all users odering by name asscending, and for the same name, usign id descending
 
-For full specifications and more examples follow [odata.org](odata.org)
 
 
 # Pre-requisites
