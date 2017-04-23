@@ -4,6 +4,8 @@ Automatic OData Restful exposition of DB entities with security, transformations
 
 OData specification on [odata.org](odata.org)
 
+This is a beta version, so, use it carefully.
+
 # Quick start
 
 ## Prepare OData server
