@@ -8,7 +8,6 @@ class ODataHTTP{
     const E_method_not_allowed=405;
     const E_internal_error=500;
     
-    
     public static function error($httpError,$message){
         header("HTTP/1.1 $httpError $message");
         die($message);
@@ -54,6 +53,12 @@ class ODataHTTP{
     }
     
     public static function successModifiedElement($element){
+        header('Content-Type: application/json; charset=utf-8');
+        header("HTTP/1.1 204 No content");
+        exit();
+    }
+    
+    public static function successDeletedElement(){
         header('Content-Type: application/json; charset=utf-8');
         header("HTTP/1.1 204 No content");
         exit();

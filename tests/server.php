@@ -18,6 +18,7 @@ $db=ODataMysql::create("sample","root","supersecret","127.0.0.1");
 
 //Declare options
 $options=new ODataOptions();
+$options->defaultAllowedMethods=["GET","DELETE"];
 
 //Declare the scheme
 $scheme=new ODataScheme([

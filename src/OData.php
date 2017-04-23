@@ -168,10 +168,22 @@ class OData{
         //Query options modifiers
         $this->queryMethodModifiers();
 
+        //Prepare request
+        $request=new ODataRequest($requestSlim);
+        $request->prepare(
+            $requestSlim->getMethod(),
+            $requestSlim->getAttribute('entityQueryStr'),
+            $requestSlim->getBody()->read(1000000)
+        );
+        
         //Run server
-        $this->serve(new ODataRequest($requestSlim));
-
+        $this->serve($request);
+        
         return $responseSlim;
+    }
+    
+    public function executeLocal(ODataRequest $request){
+        return $this->serve($request);
     }
     
     /**
@@ -185,13 +197,16 @@ class OData{
         
         switch($request->getMethod()){
             case "GET":
-                $this->serveGet($request);
+                return $this->serveGet($request);
             break;
             case "POST":
-                $this->servePost($request);
+                return $this->servePost($request);
             break;
             case "PATCH":
-                $this->servePatch($request);
+                return $this->servePatch($request);
+            break;
+            case "DELETE":
+                return $this->serveDelete($request);
             break;
             default:
                 ODataHTTP::error(ODataHTTP::E_not_implemented, $request->getMethod(). "method is not implememn");
@@ -205,7 +220,7 @@ class OData{
      */
     protected function serveGet(ODataRequest $request){
         //Get scheme
-        $scheme=$this->prepareOperation($request);
+        list($table,$scheme)=$this->prepareOperation($request);
         
         //Init query
 	$query=new ODataQuery($scheme->getName());
@@ -331,7 +346,7 @@ class OData{
      * @param ODataRequest $request
      */
     protected function servePost(ODataRequest $request){
-        $scheme=$this->prepareOperation($request);
+        list($table,$scheme)=$this->prepareOperation($request);
         
         //Check body and extract element
         $element=$request->getBody();
@@ -355,7 +370,7 @@ class OData{
      * @param ODataRequest $request
      */
     protected function servePatch(ODataRequest $request){
-        $scheme=$this->prepareOperation($request);
+        list($table,$scheme)=$this->prepareOperation($request);
         
         //Check body and extract element
         $element=$request->getBody();
@@ -373,6 +388,59 @@ class OData{
         }catch(Exception $ex){
             ODataHTTP::errorException($ex);
         }
+    }
+    
+    /**
+     * Delete service
+     * @param ODataRequest $request
+     */
+    public function serveDelete(ODataRequest $request){
+        list($table,$scheme)=$this->prepareOperation($request);
+        
+        $pkValues=$this->extractPK($request,$scheme);
+        
+        try{
+            $this->db->delete($pkValues,$table);
+            ODataHTTP::successDeletedElement();
+        }catch(Exception $ex){
+            ODataHTTP::errorException($ex);
+        }
+    }
+    
+    protected function extractPK(ODataRequest $request, ODataSchemeEntity $scheme){
+        //Get primary key scheme
+        $schemePk=$scheme->getPk();
+        
+        $result=[];
+        
+        if (count($schemePk)==0){
+            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$scheme->getName()." has not Primary key");
+        }
+        else{
+            if (count($schemePk)==1){
+                if (count($request->getPk())==0){
+                    //DO nothing
+                }
+                else
+                    if (count($request->getPk())==1){
+                        $result[$schemePk[0]->getName()]=
+                                $scheme->security_preprocesInputField(
+                                    $schemePk[0],
+                                    $request->getPk()[0],
+                                    $request->getMethod()
+                                );
+                    }
+                    else
+                        //TODO: Implement multiple
+                        ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+            }
+            else{
+                //TODO : Prepare WHERE with multiples Ids
+                ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+            }
+        }
+        
+        return $result;
     }
     
     /**
@@ -534,9 +602,9 @@ class OData{
 	
         //Check if operation is allowed for this entity
         if (!$entityScheme->security_allowedMethod($request->getMethod()))
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation for ".$tableScheme->getName());
+            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation for ".$entityScheme->getName());
         
-        return $entityScheme;
+        return [$entity,$entityScheme];
     } 
   
 }

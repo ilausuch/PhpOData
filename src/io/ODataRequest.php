@@ -19,15 +19,10 @@ class ODataRequest{
     private $format;
     
     
-    function __construct(Request $request) {
-        $this->prepare(
-                $request->getMethod(),
-                $request->getAttribute('entityQueryStr'),
-                $request->getBody()->read(1000000));
-        
+    function __construct() {
     }
     
-    protected function prepare($method,$entityQueryStr,$body){
+    public function prepare($method,$entityQueryStr,$body){
         $this->method=$method;
         $this->body=$body;
         

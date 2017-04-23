@@ -249,6 +249,48 @@ class ODataMysql extends ODataDBAdapter{
         
         $stmt=$this->db->prepare($queryString) ;
         $result=$stmt->execute($values);
+        
+        return $result;
+    }
+    
+    public function delete($element, $table){
+        $scheme=$this->discoverTableScheme($table);
+        $pk=$scheme->getPk();
+        
+        //Extract field values for insert
+        $keys=[];
+        $values=[];
+        
+        $pkKeys=[];
+        $pkValues=[];
+        
+        foreach ($element as $k=>$v){
+            if ($k==$pk[0]->getName()){
+                $pkKeys[]="`".$k."`=?";
+                $pkValues[]=$v;
+            }
+            else{
+                $keys[]="`".$k."`=?";
+                $values[]=$v;
+            }
+        }
+        
+        if (count($pkKeys)==0)
+            throw new Exception("It requires IDs fields and values",ODataHTTP::E_bad_request);
+        
+        $queryString="DELETE FROM $table WHERE ".join(" and ",$pkKeys);
+        
+        $values=array_merge($values,$pkValues);
+        
+        $stmt=$this->db->prepare($queryString) ;
+        $result=$stmt->execute($values);
+        
+        $rowsAffected=$stmt->rowCount();
+        
+        if ($rowsAffected==0)
+            ODataHTTP::error (ODataHTTP::E_bad_request,"Element doesn't exist");
+        
+        return true;
     }
     
     /**

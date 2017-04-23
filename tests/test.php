@@ -20,3 +20,4 @@ execute($serverUrl."User(1)");
 execute($serverUrl."User?\$filter=name%20eq%20'Ivan'");
 execute($serverUrl."User?\$filter=name%20eq%20'Ivan'%20or%20Id%20eq%203");
 execute($serverUrl."User?\$expand=PurchaseList/ProductList");
+ 
