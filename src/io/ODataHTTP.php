@@ -14,8 +14,7 @@ class ODataHTTP{
     }
     
     public static function errorException(Exception $exception){
-        header("HTTP/1.1 {$exception->getCode()} {$exception->getMessage()}");
-        die($message);
+        ODataHTTP::error(ODataHTTP::E_internal_error,$exception->getMessage());
     }
     
     

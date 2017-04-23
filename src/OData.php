@@ -358,8 +358,9 @@ class OData{
         //Send to DB
         try{
             $result=$this->db->insert($element,$table);
-            $result=$scheme->prepareEntityListForOutput($result);
-            ODataHTTP::successModifiedElement($result);
+            
+            $result=$scheme->prepareEntityForOuput($result);
+            ODataHTTP::successCreatedElement($result);
         }catch(Exception $ex){
             ODataHTTP::errorException($ex);
         }
@@ -371,17 +372,20 @@ class OData{
      */
     protected function servePatch(ODataRequest $request){
         list($table,$scheme)=$this->prepareOperation($request);
-        
         //Check body and extract element
         $element=$request->getBody();
         $element= json_decode($element,true);
         
+        $pkValues=$this->extractPK($request,$scheme);
+        
+        foreach ($pkValues as $k=>$v)
+            $element[$k]=$v;
         
         //TODO: Check element
         //$tableScheme->checkNewElement($element);
         
         //Send to DB
-        try{
+        try{    
             $result=$this->db->update($element,$table);
             $result=$scheme->prepareEntityListForOutput($result);
             ODataHTTP::successModifiedElement($result);

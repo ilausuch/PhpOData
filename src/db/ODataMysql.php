@@ -229,6 +229,8 @@ class ODataMysql extends ODataDBAdapter{
         $pkKeys=[];
         $pkValues=[];
         
+        
+        
         foreach ($element as $k=>$v){
             if ($k==$pk[0]->getName()){
                 $pkKeys[]="`".$k."`=?";
@@ -243,6 +245,8 @@ class ODataMysql extends ODataDBAdapter{
         if (count($pkKeys)==0)
             throw new Exception("It requires IDs fields and values",ODataHTTP::E_bad_request);
         
+        //TODO : check if item exists before update, because if nothing is changed, rowCount()==0 and it seems it's an error, but it isn't one
+        
         $queryString="UPDATE $table SET ".join(",", $keys)." WHERE ".join(" and ",$pkKeys);
         
         $values=array_merge($values,$pkValues);
@@ -250,7 +254,7 @@ class ODataMysql extends ODataDBAdapter{
         $stmt=$this->db->prepare($queryString) ;
         $result=$stmt->execute($values);
         
-        return $result;
+        return true;
     }
     
     public function delete($element, $table){
