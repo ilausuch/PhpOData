@@ -415,6 +415,23 @@ try{
 }
 ```
 
+All together
+
+```php
+try{
+	$odata=new OData($db,$options,$scheme);
+	
+	$request=new ODataRequestORM("User", ODataRequest::METHOD_GET);
+	$request->Pk(1)->Expand("PurchaseList/ProductList");
+	
+	$response=$odata->executeLocal($request);
+    $data=$response->getData();
+    //TODO : do something with $data
+}catch(Exception $e){
+    echo($e->getMessage());
+}
+```
+
 ## ODataRequestORM
 ### Constructor
 
