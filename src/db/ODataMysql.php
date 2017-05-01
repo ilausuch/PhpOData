@@ -1,4 +1,13 @@
 <?php
+
+/*
+* The MIT License
+* http://creativecommons.org/licenses/MIT/
+*
+*  PhpOData (github.com/ilausuch/PhpOData)
+* Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
+**/
+
 class ODataMysql extends ODataDBAdapter{
     private $tableSchemes;
     
@@ -214,7 +223,7 @@ class ODataMysql extends ODataDBAdapter{
             return $stmt->fetch();
         }
         else{
-            throw new Exception("Cannot insert into $table. ".json_encode($this->db->errorInfo()),500);
+            throw new Exception("Cannot insert into $table. ".json_encode($this->db->errorInfo()), ODataResponse::E_internal_error);
         }
     }
     
@@ -243,7 +252,7 @@ class ODataMysql extends ODataDBAdapter{
         }
         
         if (count($pkKeys)==0)
-            throw new Exception("It requires IDs fields and values",ODataHTTP::E_bad_request);
+            throw new Exception("It requires IDs fields and values", ODataResponse::E_bad_request);
         
         //TODO : check if item exists before update, because if nothing is changed, rowCount()==0 and it seems it's an error, but it isn't one
         
@@ -280,7 +289,7 @@ class ODataMysql extends ODataDBAdapter{
         }
         
         if (count($pkKeys)==0)
-            throw new Exception("It requires IDs fields and values",ODataHTTP::E_bad_request);
+            throw new Exception("It requires IDs fields and values", ODataResponse::E_bad_request);
         
         $queryString="DELETE FROM $table WHERE ".join(" and ",$pkKeys);
         
@@ -292,7 +301,7 @@ class ODataMysql extends ODataDBAdapter{
         $rowsAffected=$stmt->rowCount();
         
         if ($rowsAffected==0)
-            ODataHTTP::error (ODataHTTP::E_bad_request,"Element doesn't exist");
+            throw new Exception("Element doesn't exist", ODataResponse::E_bad_request);
         
         return true;
     }

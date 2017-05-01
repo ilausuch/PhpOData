@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li class="active"><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -133,7 +139,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataScheme.html#3-49" title="Go to source code">src/scheme/ODataScheme.php</a>
+			<b>Located at</b> <a href="source-class-ODataScheme.html#10-56" title="Go to source code">src/scheme/ODataScheme.php</a>
 		<br>
 	</div>
 
@@ -153,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataScheme.html#6-15" title="Go to source code">__construct</a>( <span> <var>$entities</var> = []</span> )</code>
+		<code><a href="source-class-ODataScheme.html#13-22" title="Go to source code">__construct</a>( <span> <var>$entities</var> = []</span> )</code>
 
 		<div class="description short">
 			
@@ -183,7 +189,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parse">#</a>
-		<code><a href="source-class-ODataScheme.html#17-39" title="Go to source code">parse</a>( <span> <var>$json</var></span> )</code>
+		<code><a href="source-class-ODataScheme.html#24-46" title="Go to source code">parse</a>( <span> <var>$json</var></span> )</code>
 
 		<div class="description short">
 			
@@ -213,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addEntity">#</a>
-		<code><a href="source-class-ODataScheme.html#42-44" title="Go to source code">addEntity</a>( <span><code><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></code> <var>$entity</var></span> )</code>
+		<code><a href="source-class-ODataScheme.html#49-51" title="Go to source code">addEntity</a>( <span><code><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></code> <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -243,7 +249,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEntity">#</a>
-		<code><a href="source-class-ODataScheme.html#46-48" title="Go to source code">getEntity</a>( <span> <var>$name</var></span> )</code>
+		<code><a href="source-class-ODataScheme.html#53-55" title="Go to source code">getEntity</a>( <span> <var>$name</var></span> )</code>
 
 		<div class="description short">
 			

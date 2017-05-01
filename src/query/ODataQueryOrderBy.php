@@ -1,10 +1,11 @@
 <?php
-
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* The MIT License
+* http://creativecommons.org/licenses/MIT/
+*
+*  PhpOData (github.com/ilausuch/PhpOData)
+* Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
+*/
 
 /**
  * Description of ODataQueryOrderBy
@@ -69,9 +70,9 @@ class ODataQueryOrderBy {
         $v2=$e2[$this->field];
                 
         if ($field1==null || $field1==null || $field1!=$field2)
-            ODataHTTP::error (ODataHTTP::E_bad_request, "Invalid orderby field "+$this->field);
+            throw new Exception("Invalid orderby field "+$this->field, ODataResponse::E_bad_request);
         
-        switch($field1->getTypeSimplified()){
+        switch($field1->getType()){
             case "int":
             case "float":
             case "decimal":

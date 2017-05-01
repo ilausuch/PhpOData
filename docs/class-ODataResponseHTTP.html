@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8">
 
-	<title>Class ODataHTTP | PhpOData</title>
+	<title>Class ODataResponseHTTP | PhpOData</title>
 
 	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
 
@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li class="active"><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li class="active"><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -115,7 +121,7 @@
 	</div>
 
 <div id="content" class="class">
-	<h1>Class ODataHTTP</h1>
+	<h1>Class ODataResponseHTTP</h1>
 
 
 
@@ -133,7 +139,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataHTTP.html#3-75" title="Go to source code">src/io/ODataHTTP.php</a>
+			<b>Located at</b> <a href="source-class-ODataResponseHTTP.html#10-115" title="Go to source code">src/io/ODataResponseHTTP.php</a>
 		<br>
 	</div>
 
@@ -153,16 +159,23 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_error">#</a>
-		<code><a href="source-class-ODataHTTP.html#12-15" title="Go to source code">error</a>( <span> <var>$httpError</var></span>, <span> <var>$message</var></span> )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#12-20" title="Go to source code">error</a>( <span>integer <var>$httpError</var></span>, <span>string <var>$message</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Send error message</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Send error message</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$httpError</var></dt>
+					<dd></dd>
+					<dt><var>$message</var></dt>
+					<dd></dd>
+				</dl></div>
 
 
 
@@ -183,16 +196,21 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_errorException">#</a>
-		<code><a href="source-class-ODataHTTP.html#17-20" title="Go to source code">errorException</a>( <span><code><a href="class-Exception.html">Exception</a></code> <var>$exception</var></span> )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#22-28" title="Go to source code">errorException</a>( <span><code><a href="class-Exception.html">Exception</a></code> <var>$exception</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Send error message usign the exception message and code</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Send error message usign the exception message and code</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$exception</var></dt>
+					<dd></dd>
+				</dl></div>
 
 
 
@@ -213,16 +231,21 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_successArray">#</a>
-		<code><a href="source-class-ODataHTTP.html#38-44" title="Go to source code">successArray</a>( <span> <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#48-58" title="Go to source code">successArray</a>( <span>object[] <var>$list</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Send success data as array of objects</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Send success data as array of objects</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$list</var></dt>
+					<dd></dd>
+				</dl></div>
 
 
 
@@ -243,16 +266,21 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_successCreatedElement">#</a>
-		<code><a href="source-class-ODataHTTP.html#46-54" title="Go to source code">successCreatedElement</a>( <span> <var>$element</var></span> )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#60-72" title="Go to source code">successCreatedElement</a>( <span>object <var>$element</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Success when a new element is created. Return the created object</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Success when a new element is created. Return the created object</p>
 
 
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$element</var></dt>
+					<dd></dd>
+				</dl></div>
 
 
 
@@ -273,14 +301,49 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_successModifiedElement">#</a>
-		<code><a href="source-class-ODataHTTP.html#56-60" title="Go to source code">successModifiedElement</a>( <span> <var>$element</var></span> )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#74-82" title="Go to source code">successModifiedElement</a>( <span>object <var>$element</var></span> )</code>
 
 		<div class="description short">
-			
+			<p>Success when a new element is mofified</p>
 		</div>
 
 		<div class="description detailed hidden">
+			<p>Success when a new element is mofified</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$element</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="successDeletedElement" id="_successDeletedElement">
+
+		<td class="attributes"><code>
+			 public static
+
 			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_successDeletedElement">#</a>
+		<code><a href="source-class-ODataResponseHTTP.html#84-91" title="Go to source code">successDeletedElement</a>( )</code>
+
+		<div class="description short">
+			<p>Success when a element is deleted</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Success when a element is deleted</p>
 
 
 
@@ -303,14 +366,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_allowOrigin">#</a>
-		<code><a href="source-class-ODataHTTP.html#62-66" title="Go to source code">allowOrigin</a>( )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#93-100" title="Go to source code">allowOrigin</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Allows any origin</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Allows any origin</p>
 
 
 
@@ -333,14 +396,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_accessControlAllowMethods">#</a>
-		<code><a href="source-class-ODataHTTP.html#68-70" title="Go to source code">accessControlAllowMethods</a>( )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#102-107" title="Go to source code">accessControlAllowMethods</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Allows all methods</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Allows all methods</p>
 
 
 
@@ -363,14 +426,14 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_accessControllAllowHeaders">#</a>
-		<code><a href="source-class-ODataHTTP.html#72-74" title="Go to source code">accessControllAllowHeaders</a>( )</code>
+		<code><a href="source-class-ODataResponseHTTP.html#109-114" title="Go to source code">accessControllAllowHeaders</a>( )</code>
 
 		<div class="description short">
-			
+			<p>Allows control headers</p>
 		</div>
 
 		<div class="description detailed hidden">
-			
+			<p>Allows control headers</p>
 
 
 
@@ -390,153 +453,6 @@
 
 
 
-	<table class="summary constants" id="constants">
-	<caption>Constants summary</caption>
-	<tr data-order="E_not_implemented" id="E_not_implemented">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#4" title="Go to source code"><b>E_not_implemented</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_not_implemented" class="anchor">#</a>
-				<code><span class="php-num">501</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="E_bad_request" id="E_bad_request">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#5" title="Go to source code"><b>E_bad_request</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_bad_request" class="anchor">#</a>
-				<code><span class="php-num">400</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="E_unauthorized" id="E_unauthorized">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#6" title="Go to source code"><b>E_unauthorized</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_unauthorized" class="anchor">#</a>
-				<code><span class="php-num">401</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="E_forbidden" id="E_forbidden">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#7" title="Go to source code"><b>E_forbidden</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_forbidden" class="anchor">#</a>
-				<code><span class="php-num">403</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="E_method_not_allowed" id="E_method_not_allowed">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#8" title="Go to source code"><b>E_method_not_allowed</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_method_not_allowed" class="anchor">#</a>
-				<code><span class="php-num">405</span></code>
-			</div>
-		</td>
-	</tr>
-	<tr data-order="E_internal_error" id="E_internal_error">
-
-		<td class="attributes"><code>integer</code></td>
-		<td class="name">
-			<code>
-				<a href="source-class-ODataHTTP.html#9" title="Go to source code"><b>E_internal_error</b></a>
-			</code>
-
-			<div class="description short">
-				
-			</div>
-
-			<div class="description detailed hidden">
-				
-
-			</div>
-		</td>
-		<td class="value">
-			<div>
-				<a href="#E_internal_error" class="anchor">#</a>
-				<code><span class="php-num">500</span></code>
-			</div>
-		</td>
-	</tr>
-	</table>
 
 
 

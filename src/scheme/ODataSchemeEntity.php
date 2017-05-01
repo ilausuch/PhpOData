@@ -1,4 +1,11 @@
 <?php
+/*
+* The MIT License
+* http://creativecommons.org/licenses/MIT/
+*
+*  PhpOData (github.com/ilausuch/PhpOData)
+* Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
+*/
 
 class ODataSchemeEntity{
     private $name;
@@ -105,7 +112,7 @@ class ODataSchemeEntity{
             if (isset($dbScheme))
                 $this->setFields($dbScheme->getFields());
             else
-                ODataHTTP::error (ODataHTTP::E_not_implemented, "Entity {$entityName} isn't defined in DB");
+                throw new Exception("Entity {$entityName} isn't defined in DB", ODataResponse::E_not_implemented);
         }
         
         return $this->fields;
@@ -126,7 +133,7 @@ class ODataSchemeEntity{
      */
     public function getAssociation($name){
         if (!isset($this->associations[$name]))
-            ODataHTTP::error (ODataHTTP::E_not_implemented, "Invalid associated {$name} for {$this->name}");
+            throw new Exception("Invalid associated {$name} for {$this->name}", ODataResponse::E_not_implemented);
             
         return $this->associations[$name];
     }

@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -133,7 +139,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-OData.html#39-533" title="Go to source code">src/OData.php</a>
+			<b>Located at</b> <a href="source-class-OData.html#41-631" title="Go to source code">src/OData.php</a>
 		<br>
 	</div>
 
@@ -153,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-OData.html#72-84" title="Go to source code">__construct</a>( <span><code><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></code> <var>$db</var></span>, <span><code><a href="class-ODataOptions.html">ODataOptions</a></code> <var>$config</var></span>, <span><code><a href="class-ODataScheme.html">ODataScheme</a></code> <var>$scheme</var> = <span class="php-keyword1">null</span></span> )</code>
+		<code><a href="source-class-OData.html#74-86" title="Go to source code">__construct</a>( <span><code><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></code> <var>$db</var></span>, <span><code><a href="class-ODataOptions.html">ODataOptions</a></code> <var>$config</var></span>, <span><code><a href="class-ODataScheme.html">ODataScheme</a></code> <var>$scheme</var> = <span class="php-keyword1">null</span></span> )</code>
 
 		<div class="description short">
 			<p>Constructor</p>
@@ -192,7 +198,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getScheme">#</a>
-		<code><a href="source-class-OData.html#86-92" title="Go to source code">getScheme</a>( )</code>
+		<code><a href="source-class-OData.html#88-94" title="Go to source code">getScheme</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the scheme</p>
@@ -226,7 +232,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getDb">#</a>
-		<code><a href="source-class-OData.html#94-100" title="Go to source code">getDb</a>( )</code>
+		<code><a href="source-class-OData.html#96-102" title="Go to source code">getDb</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the DB adapter</p>
@@ -260,7 +266,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getConfig">#</a>
-		<code><a href="source-class-OData.html#102-108" title="Go to source code">getConfig</a>( )</code>
+		<code><a href="source-class-OData.html#104-110" title="Go to source code">getConfig</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the configuration object</p>
@@ -294,7 +300,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getContext">#</a>
-		<code><a href="source-class-OData.html#110-116" title="Go to source code">getContext</a>( )</code>
+		<code><a href="source-class-OData.html#112-118" title="Go to source code">getContext</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the context</p>
@@ -328,7 +334,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEntityScheme">#</a>
-		<code><a href="source-class-OData.html#118-130" title="Go to source code">getEntityScheme</a>( <span>string <var>$entityName</var></span> )</code>
+		<code><a href="source-class-OData.html#120-132" title="Go to source code">getEntityScheme</a>( <span>string <var>$entityName</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns a complete Entity Scheme convining configured scheme and DB scheme</p>
@@ -355,7 +361,7 @@
 		</div>
 		</div></td>
 	</tr>
-	<tr data-order="execute" id="_execute">
+	<tr data-order="run" id="_run">
 
 		<td class="attributes"><code>
 			 public 
@@ -366,8 +372,8 @@
 		</td>
 
 		<td class="name"><div>
-		<a class="anchor" href="#_execute">#</a>
-		<code><a href="source-class-OData.html#132-168" title="Go to source code">execute</a>( <span>boolean <var>$debug</var> = <span class="php-keyword1">false</span></span> )</code>
+		<a class="anchor" href="#_run">#</a>
+		<code><a href="source-class-OData.html#134-149" title="Go to source code">run</a>( <span>boolean <var>$debug</var> = <span class="php-keyword1">false</span></span> )</code>
 
 		<div class="description short">
 			<p>Execute the service</p>
@@ -390,6 +396,119 @@
 		</div>
 		</div></td>
 	</tr>
+	<tr data-order="setSlimRule" id="_setSlimRule">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_setSlimRule">#</a>
+		<code><a href="source-class-OData.html#151-159" title="Go to source code">setSlimRule</a>( <span>SlimApp <var>$app</var></span> )</code>
+
+		<div class="description short">
+			<p>If you already have an Slim app created, you can created the rule directly</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>If you already have an Slim app created, you can created the rule directly</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$app</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="executeLocal" id="_executeLocal">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataResponse.html">ODataResponse</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_executeLocal">#</a>
+		<code><a href="source-class-OData.html#161-170" title="Go to source code">executeLocal</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+
+		<div class="description short">
+			<p>Execute OData query without HTTP output</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Execute OData query without HTTP output</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataResponse.html">ODataResponse</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="execute" id="_execute">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_execute">#</a>
+		<code><a href="source-class-OData.html#172-219" title="Go to source code">execute</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$requestSlim</var></span>, <span>Psr\Http\Message\ResponseInterface <var>$responseSlim</var></span>, <span>type <var>$args</var></span> )</code>
+
+		<div class="description short">
+			<p>Internal execution function</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Internal execution function</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$requestSlim</var></dt>
+					<dd></dd>
+					<dt><var>$responseSlim</var></dt>
+					<dd></dd>
+					<dt><var>$args</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
 	<tr data-order="serve" id="_serve">
 
 		<td class="attributes"><code>
@@ -402,7 +521,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_serve">#</a>
-		<code><a href="source-class-OData.html#170-193" title="Go to source code">serve</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-OData.html#223-249" title="Go to source code">serve</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataResponse.html">ODataResponse</a></code> <var>$response</var></span> )</code>
 
 		<div class="description short">
 			<p>Serves a request</p>
@@ -415,6 +534,8 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$request</var></dt>
+					<dd></dd>
+					<dt><var>$response</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -437,7 +558,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_serveGet">#</a>
-		<code><a href="source-class-OData.html#195-318" title="Go to source code">serveGet</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-OData.html#251-370" title="Go to source code">serveGet</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataResponse.html">ODataResponse</a></code> <var>$response</var></span> )</code>
 
 		<div class="description short">
 			<p>Get service (Query)</p>
@@ -450,6 +571,8 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$request</var></dt>
+					<dd></dd>
+					<dt><var>$response</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -472,7 +595,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_servePost">#</a>
-		<code><a href="source-class-OData.html#320-342" title="Go to source code">servePost</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-OData.html#372-391" title="Go to source code">servePost</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataResponse.html">ODataResponse</a></code> <var>$response</var></span> )</code>
 
 		<div class="description short">
 			<p>Post service (Creation)</p>
@@ -485,6 +608,8 @@
 				<h4>Parameters</h4>
 				<div class="list"><dl>
 					<dt><var>$request</var></dt>
+					<dd></dd>
+					<dt><var>$response</var></dt>
 					<dd></dd>
 				</dl></div>
 
@@ -507,7 +632,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_servePatch">#</a>
-		<code><a href="source-class-OData.html#344-367" title="Go to source code">servePatch</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-OData.html#393-416" title="Go to source code">servePatch</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataResponse.html">ODataResponse</a></code> <var>$response</var></span> )</code>
 
 		<div class="description short">
 			<p>Patch service (modifications)</p>
@@ -521,7 +646,76 @@
 				<div class="list"><dl>
 					<dt><var>$request</var></dt>
 					<dd></dd>
+					<dt><var>$response</var></dt>
+					<dd></dd>
 				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="serveDelete" id="_serveDelete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_serveDelete">#</a>
+		<code><a href="source-class-OData.html#418-429" title="Go to source code">serveDelete</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataResponse.html">ODataResponse</a></code> <var>$response</var></span> )</code>
+
+		<div class="description short">
+			<p>Delete service</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Delete service</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$request</var></dt>
+					<dd></dd>
+					<dt><var>$response</var></dt>
+					<dd></dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="extractPK" id="_extractPK">
+
+		<td class="attributes"><code>
+			 protected 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_extractPK">#</a>
+		<code><a href="source-class-OData.html#431-465" title="Go to source code">extractPK</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span>, <span><code><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></code> <var>$scheme</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
 
 
 
@@ -542,7 +736,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_expand">#</a>
-		<code><a href="source-class-OData.html#369-435" title="Go to source code">expand</a>( <span>type <var>&amp; $entityData</var></span>, <span><code><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></code> <var>$scheme</var></span>, <span><code><a href="class-ODataQueryExand.html">ODataQueryExand</a></code> <var>$expand</var></span> )</code>
+		<code><a href="source-class-OData.html#467-533" title="Go to source code">expand</a>( <span>type <var>&amp; $entityData</var></span>, <span><code><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></code> <var>$scheme</var></span>, <span><code><a href="class-ODataQueryExand.html">ODataQueryExand</a></code> <var>$expand</var></span> )</code>
 
 		<div class="description short">
 			<p>Expand a entity</p>
@@ -585,7 +779,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_allowAnyOrigin">#</a>
-		<code><a href="source-class-OData.html#437-444" title="Go to source code">allowAnyOrigin</a>( )</code>
+		<code><a href="source-class-OData.html#535-542" title="Go to source code">allowAnyOrigin</a>( )</code>
 
 		<div class="description short">
 			<p>If allow from any origin is defined, send headers</p>
@@ -615,7 +809,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_enableOptionsRequest">#</a>
-		<code><a href="source-class-OData.html#446-462" title="Go to source code">enableOptionsRequest</a>( )</code>
+		<code><a href="source-class-OData.html#544-560" title="Go to source code">enableOptionsRequest</a>( )</code>
 
 		<div class="description short">
 			<p>If options method is allowed send headers</p>
@@ -645,7 +839,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkClients">#</a>
-		<code><a href="source-class-OData.html#464-472" title="Go to source code">checkClients</a>( )</code>
+		<code><a href="source-class-OData.html#562-570" title="Go to source code">checkClients</a>( )</code>
 
 		<div class="description short">
 			<p>If clients is defined check it and send error if it is necessary</p>
@@ -675,7 +869,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_queryMethodModifiers">#</a>
-		<code><a href="source-class-OData.html#474-488" title="Go to source code">queryMethodModifiers</a>( )</code>
+		<code><a href="source-class-OData.html#572-586" title="Go to source code">queryMethodModifiers</a>( )</code>
 
 		<div class="description short">
 			<p>Enable query medhod motifiers</p>
@@ -705,7 +899,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkAuth">#</a>
-		<code><a href="source-class-OData.html#490-496" title="Go to source code">checkAuth</a>( <span> <var>$entity</var></span> )</code>
+		<code><a href="source-class-OData.html#588-594" title="Go to source code">checkAuth</a>( <span> <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if it is authorized, other ways send error</p>
@@ -735,7 +929,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_checkCli">#</a>
-		<code><a href="source-class-OData.html#498-505" title="Go to source code">checkCli</a>( )</code>
+		<code><a href="source-class-OData.html#596-603" title="Go to source code">checkCli</a>( )</code>
 
 		<div class="description short">
 			<p>If this operation is called from command line, send error</p>
@@ -765,7 +959,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_prepareOperation">#</a>
-		<code><a href="source-class-OData.html#507-531" title="Go to source code">prepareOperation</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
+		<code><a href="source-class-OData.html#605-629" title="Go to source code">prepareOperation</a>( <span><code><a href="class-ODataRequest.html">ODataRequest</a></code> <var>$request</var></span> )</code>
 
 		<div class="description short">
 			
@@ -814,7 +1008,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-OData.html#41-45" title="Go to source code"><var>$object</var></a>
+				<a href="source-class-OData.html#43-47" title="Go to source code"><var>$object</var></a>
 
 			<div class="description short">
 				<p>Unique OData object</p>
@@ -839,7 +1033,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-OData.html#47-51" title="Go to source code"><var>$config</var></a>
+				<a href="source-class-OData.html#49-53" title="Go to source code"><var>$config</var></a>
 
 			<div class="description short">
 				<p>The configuration options</p>
@@ -864,7 +1058,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-OData.html#53-57" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-OData.html#55-59" title="Go to source code"><var>$db</var></a>
 
 			<div class="description short">
 				<p>the DB adapter</p>
@@ -889,7 +1083,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-OData.html#59-63" title="Go to source code"><var>$scheme</var></a>
+				<a href="source-class-OData.html#61-65" title="Go to source code"><var>$scheme</var></a>
 
 			<div class="description short">
 				<p>The scheme</p>

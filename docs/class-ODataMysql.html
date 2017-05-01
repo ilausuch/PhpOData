@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li class="active"><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -147,7 +153,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataMysql.html#2-331" title="Go to source code">src/db/ODataMysql.php</a>
+			<b>Located at</b> <a href="source-class-ODataMysql.html#11-386" title="Go to source code">src/db/ODataMysql.php</a>
 		<br>
 	</div>
 
@@ -167,7 +173,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_create">#</a>
-		<code><a href="source-class-ODataMysql.html#5-17" title="Go to source code">create</a>( <span> <var>$dbName</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$host</var> = <span class="php-quote">&quot;localhost&quot;</span></span>, <span> <var>$port</var> = <span class="php-num">3306</span></span> )</code>
+		<code><a href="source-class-ODataMysql.html#14-26" title="Go to source code">create</a>( <span> <var>$dbName</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$host</var> = <span class="php-quote">&quot;localhost&quot;</span></span>, <span> <var>$port</var> = <span class="php-num">3306</span></span> )</code>
 
 		<div class="description short">
 			
@@ -197,7 +203,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataMysql.html#19-23" title="Go to source code">__construct</a>( <span> <var>$dns</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$options</var></span> )</code>
+		<code><a href="source-class-ODataMysql.html#28-32" title="Go to source code">__construct</a>( <span> <var>$dns</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$options</var></span> )</code>
 
 		<div class="description short">
 			
@@ -229,7 +235,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_internalQuery">#</a>
-		<code><a href="source-class-ODataMysql.html#112-114" title="Go to source code">internalQuery</a>( )</code>
+		<code><a href="source-class-ODataMysql.html#121-123" title="Go to source code">internalQuery</a>( )</code>
 
 		<div class="description short">
 			
@@ -259,7 +265,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query">#</a>
-		<code><a href="source-class-ODataMysql.html#116-171" title="Go to source code">query</a>( <span><code><a href="class-ODataQuery.html">ODataQuery</a></code> <var>$query</var></span> )</code>
+		<code><a href="source-class-ODataMysql.html#125-180" title="Go to source code">query</a>( <span><code><a href="class-ODataQuery.html">ODataQuery</a></code> <var>$query</var></span> )</code>
 
 		<div class="description short">
 			
@@ -291,7 +297,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insert">#</a>
-		<code><a href="source-class-ODataMysql.html#173-219" title="Go to source code">insert</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
+		<code><a href="source-class-ODataMysql.html#182-228" title="Go to source code">insert</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
 
 		<div class="description short">
 			
@@ -323,7 +329,37 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_update">#</a>
-		<code><a href="source-class-ODataMysql.html#221-252" title="Go to source code">update</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
+		<code><a href="source-class-ODataMysql.html#230-267" title="Go to source code">update</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="delete" id="_delete">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_delete">#</a>
+		<code><a href="source-class-ODataMysql.html#269-307" title="Go to source code">delete</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
 
 		<div class="description short">
 			
@@ -353,7 +389,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_discoverTableScheme">#</a>
-		<code><a href="source-class-ODataMysql.html#306-330" title="Go to source code">discoverTableScheme</a>( <span> <var>$table</var></span> )</code>
+		<code><a href="source-class-ODataMysql.html#361-385" title="Go to source code">discoverTableScheme</a>( <span> <var>$table</var></span> )</code>
 
 		<div class="description short">
 			

@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li class="active"><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -138,7 +144,7 @@
 
 				<b>Author:</b>
 				ilausuch<br>
-			<b>Located at</b> <a href="source-class-ODataSchemeEntityAssociation.html#9-67" title="Go to source code">src/scheme/ODataSchemeEntityAssociation.php</a>
+			<b>Located at</b> <a href="source-class-ODataSchemeEntityAssociation.html#10-68" title="Go to source code">src/scheme/ODataSchemeEntityAssociation.php</a>
 		<br>
 	</div>
 
@@ -158,7 +164,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#23-37" title="Go to source code">__construct</a>( <span>string <var>$associated</var></span>, <span>string <var>$field</var></span>, <span>string <var>$relationType</var></span>, <span><code><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a>[]</code> <var>$relationFields</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#24-38" title="Go to source code">__construct</a>( <span>string <var>$associated</var></span>, <span>string <var>$field</var></span>, <span>string <var>$relationType</var></span>, <span><code><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a>[]</code> <var>$relationFields</var></span> )</code>
 
 		<div class="description short">
 			<p>Create a new association</p>
@@ -199,7 +205,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parse">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#39-42" title="Go to source code">parse</a>( <span> <var>$field</var></span>, <span> <var>$config</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#40-43" title="Go to source code">parse</a>( <span> <var>$field</var></span>, <span> <var>$config</var></span> )</code>
 
 		<div class="description short">
 			
@@ -229,7 +235,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAssociated">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#44-46" title="Go to source code">getAssociated</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#45-47" title="Go to source code">getAssociated</a>( )</code>
 
 		<div class="description short">
 			
@@ -259,7 +265,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getField">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#48-50" title="Go to source code">getField</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#49-51" title="Go to source code">getField</a>( )</code>
 
 		<div class="description short">
 			
@@ -289,7 +295,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRelationType">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#52-54" title="Go to source code">getRelationType</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#53-55" title="Go to source code">getRelationType</a>( )</code>
 
 		<div class="description short">
 			
@@ -319,7 +325,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getRelationFields">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#56-58" title="Go to source code">getRelationFields</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#57-59" title="Go to source code">getRelationFields</a>( )</code>
 
 		<div class="description short">
 			
@@ -349,7 +355,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isMultiple">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#60-62" title="Go to source code">isMultiple</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#61-63" title="Go to source code">isMultiple</a>( )</code>
 
 		<div class="description short">
 			
@@ -379,7 +385,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isSingle">#</a>
-		<code><a href="source-class-ODataSchemeEntityAssociation.html#64-66" title="Go to source code">isSingle</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntityAssociation.html#65-67" title="Go to source code">isSingle</a>( )</code>
 
 		<div class="description short">
 			
@@ -413,7 +419,7 @@
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemeEntityAssociation.html#20" title="Go to source code"><b>MULTIPLE</b></a>
+				<a href="source-class-ODataSchemeEntityAssociation.html#21" title="Go to source code"><b>MULTIPLE</b></a>
 			</code>
 
 			<div class="description short">
@@ -437,7 +443,7 @@
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemeEntityAssociation.html#21" title="Go to source code"><b>SINGLE</b></a>
+				<a href="source-class-ODataSchemeEntityAssociation.html#22" title="Go to source code"><b>SINGLE</b></a>
 			</code>
 
 			<div class="description short">

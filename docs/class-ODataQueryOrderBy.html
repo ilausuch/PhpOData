@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li class="active"><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -138,7 +144,7 @@
 
 				<b>Author:</b>
 				ilausuch<br>
-			<b>Located at</b> <a href="source-class-ODataQueryOrderBy.html#9-94" title="Go to source code">src/query/ODataQueryOrderBy.php</a>
+			<b>Located at</b> <a href="source-class-ODataQueryOrderBy.html#10-95" title="Go to source code">src/query/ODataQueryOrderBy.php</a>
 		<br>
 	</div>
 
@@ -158,7 +164,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataQueryOrderBy.html#22-25" title="Go to source code">__construct</a>( <span> <var>$field</var></span>, <span> <var>$order</var> = ODataQueryOrderBy::ASC</span> )</code>
+		<code><a href="source-class-ODataQueryOrderBy.html#23-26" title="Go to source code">__construct</a>( <span> <var>$field</var></span>, <span> <var>$order</var> = ODataQueryOrderBy::ASC</span> )</code>
 
 		<div class="description short">
 			
@@ -188,7 +194,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getField">#</a>
-		<code><a href="source-class-ODataQueryOrderBy.html#27-29" title="Go to source code">getField</a>( )</code>
+		<code><a href="source-class-ODataQueryOrderBy.html#28-30" title="Go to source code">getField</a>( )</code>
 
 		<div class="description short">
 			
@@ -218,7 +224,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrder">#</a>
-		<code><a href="source-class-ODataQueryOrderBy.html#31-33" title="Go to source code">getOrder</a>( )</code>
+		<code><a href="source-class-ODataQueryOrderBy.html#32-34" title="Go to source code">getOrder</a>( )</code>
 
 		<div class="description short">
 			
@@ -248,7 +254,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_parse">#</a>
-		<code><a href="source-class-ODataQueryOrderBy.html#35-51" title="Go to source code">parse</a>( <span>string <var>$str</var></span> )</code>
+		<code><a href="source-class-ODataQueryOrderBy.html#36-52" title="Go to source code">parse</a>( <span>string <var>$str</var></span> )</code>
 
 		<div class="description short">
 			<p>Parse a single orderby element</p>
@@ -287,7 +293,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_compare">#</a>
-		<code><a href="source-class-ODataQueryOrderBy.html#53-93" title="Go to source code">compare</a>( <span>object <var>$e1</var></span>, <span>object <var>$e2</var></span> )</code>
+		<code><a href="source-class-ODataQueryOrderBy.html#54-94" title="Go to source code">compare</a>( <span>object <var>$e1</var></span>, <span>object <var>$e2</var></span> )</code>
 
 		<div class="description short">
 			<p>Compare two elements usign this orderby</p>
@@ -332,7 +338,7 @@
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataQueryOrderBy.html#19" title="Go to source code"><b>ASC</b></a>
+				<a href="source-class-ODataQueryOrderBy.html#20" title="Go to source code"><b>ASC</b></a>
 			</code>
 
 			<div class="description short">
@@ -356,7 +362,7 @@
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataQueryOrderBy.html#20" title="Go to source code"><b>DESC</b></a>
+				<a href="source-class-ODataQueryOrderBy.html#21" title="Go to source code"><b>DESC</b></a>
 			</code>
 
 			<div class="description short">

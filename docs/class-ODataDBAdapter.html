@@ -43,7 +43,6 @@
 				<li class="active"><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -137,7 +143,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataDBAdapter.html#3-43" title="Go to source code">src/db/ODataDBAdapter.php</a>
+			<b>Located at</b> <a href="source-class-ODataDBAdapter.html#10-50" title="Go to source code">src/db/ODataDBAdapter.php</a>
 		<br>
 	</div>
 
@@ -157,7 +163,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataDBAdapter.html#14-20" title="Go to source code">__construct</a>( <span> <var>$dsn</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$options</var></span> )</code>
+		<code><a href="source-class-ODataDBAdapter.html#21-27" title="Go to source code">__construct</a>( <span> <var>$dsn</var></span>, <span> <var>$user</var></span>, <span> <var>$password</var></span>, <span> <var>$options</var></span> )</code>
 
 		<div class="description short">
 			
@@ -187,7 +193,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_connect">#</a>
-		<code><a href="source-class-ODataDBAdapter.html#22-31" title="Go to source code">connect</a>( )</code>
+		<code><a href="source-class-ODataDBAdapter.html#29-38" title="Go to source code">connect</a>( )</code>
 
 		<div class="description short">
 			
@@ -217,7 +223,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query">#</a>
-		<code><a href="source-class-ODataDBAdapter.html#33" title="Go to source code">query</a>( <span><code><a href="class-ODataQuery.html">ODataQuery</a></code> <var>$query</var></span> )</code>
+		<code><a href="source-class-ODataDBAdapter.html#40" title="Go to source code">query</a>( <span><code><a href="class-ODataQuery.html">ODataQuery</a></code> <var>$query</var></span> )</code>
 
 		<div class="description short">
 			
@@ -247,7 +253,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_insert">#</a>
-		<code><a href="source-class-ODataDBAdapter.html#35" title="Go to source code">insert</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
+		<code><a href="source-class-ODataDBAdapter.html#42" title="Go to source code">insert</a>( <span> <var>$element</var></span>, <span> <var>$table</var></span> )</code>
 
 		<div class="description short">
 			
@@ -277,7 +283,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_discoverTableScheme">#</a>
-		<code><a href="source-class-ODataDBAdapter.html#41" title="Go to source code">discoverTableScheme</a>( <span> <var>$table</var></span> )</code>
+		<code><a href="source-class-ODataDBAdapter.html#48" title="Go to source code">discoverTableScheme</a>( <span> <var>$table</var></span> )</code>
 
 		<div class="description short">
 			
@@ -317,7 +323,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#4" title="Go to source code"><var>$dsn</var></a>
+				<a href="source-class-ODataDBAdapter.html#11" title="Go to source code"><var>$dsn</var></a>
 
 			<div class="description short">
 				
@@ -342,7 +348,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#5" title="Go to source code"><var>$user</var></a>
+				<a href="source-class-ODataDBAdapter.html#12" title="Go to source code"><var>$user</var></a>
 
 			<div class="description short">
 				
@@ -367,7 +373,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#6" title="Go to source code"><var>$password</var></a>
+				<a href="source-class-ODataDBAdapter.html#13" title="Go to source code"><var>$password</var></a>
 
 			<div class="description short">
 				
@@ -392,7 +398,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#8" title="Go to source code"><var>$db</var></a>
+				<a href="source-class-ODataDBAdapter.html#15" title="Go to source code"><var>$db</var></a>
 
 			<div class="description short">
 				
@@ -417,7 +423,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#9" title="Go to source code"><var>$options</var></a>
+				<a href="source-class-ODataDBAdapter.html#16" title="Go to source code"><var>$options</var></a>
 
 			<div class="description short">
 				
@@ -442,7 +448,7 @@
 		</code></td>
 
 		<td class="name">
-				<a href="source-class-ODataDBAdapter.html#11" title="Go to source code"><var>$connected</var></a>
+				<a href="source-class-ODataDBAdapter.html#18" title="Go to source code"><var>$connected</var></a>
 
 			<div class="description short">
 				

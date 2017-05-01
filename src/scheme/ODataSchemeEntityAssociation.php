@@ -1,10 +1,11 @@
 <?php
-
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+* The MIT License
+* http://creativecommons.org/licenses/MIT/
+*
+*  PhpOData (github.com/ilausuch/PhpOData)
+* Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
+*/
 
 /**
  * Description of ODataSchemeEntityAssociation

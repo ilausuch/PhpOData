@@ -108,18 +108,22 @@ function delete($url){
     echo "-------------------------------\n";
 }
 
-echo "Running tests\n";
+echo "Running GET tests\n";
 echo "-------------------------------\n";
 
 $serverUrl="http://localhost:8000/tests/server.php/odata/";
-/*
+
+get($serverUrl."User");
+get($serverUrl."User(1)");
 get($serverUrl."User?\$orderby=id%20asc");
 get($serverUrl."User?\$orderby=active,id%20desc");
-get($serverUrl."User(1)");
 get($serverUrl."User?\$filter=name%20eq%20'Ivan'");
 get($serverUrl."User?\$filter=name%20eq%20'Ivan'%20or%20Id%20eq%203");
 get($serverUrl."User?\$expand=PurchaseList/ProductList");
-*/
+
+
+echo "Running MOD tests\n";
+echo "-------------------------------\n";
 
 //Complete test of insert, modify, get and delete
 $element=post($serverUrl."Product",[name=>"test",price=>3.5]);

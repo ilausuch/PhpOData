@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li class="active"><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -139,7 +145,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataSchemeEntity.html#3-304" title="Go to source code">src/scheme/ODataSchemeEntity.php</a>
+			<b>Located at</b> <a href="source-class-ODataSchemeEntity.html#10-311" title="Go to source code">src/scheme/ODataSchemeEntity.php</a>
 		<br>
 	</div>
 
@@ -159,7 +165,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#9-18" title="Go to source code">__construct</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#16-25" title="Go to source code">__construct</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Constructor of an Entity</p>
@@ -194,7 +200,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFields">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#30-37" title="Go to source code">setFields</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a>[]</code> <var>$fields</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#37-44" title="Go to source code">setFields</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a>[]</code> <var>$fields</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the list of fields</p>
@@ -229,7 +235,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addField">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#39-46" title="Go to source code">addField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#46-53" title="Go to source code">addField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span> )</code>
 
 		<div class="description short">
 			<p>Add a field</p>
@@ -264,7 +270,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getField">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#48-59" title="Go to source code">getField</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#55-66" title="Go to source code">getField</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Get the field by name</p>
@@ -303,7 +309,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setAssociations">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#61-67" title="Go to source code">setAssociations</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a>[]</code> <var>$associations</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#68-74" title="Go to source code">setAssociations</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a>[]</code> <var>$associations</var></span> )</code>
 
 		<div class="description short">
 			<p>Set the list of associations</p>
@@ -338,7 +344,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addAssociation">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#69-78" title="Go to source code">addAssociation</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></code> <var>$association</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#76-85" title="Go to source code">addAssociation</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></code> <var>$association</var></span> )</code>
 
 		<div class="description short">
 			<p>Add a new association</p>
@@ -373,7 +379,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getName">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#80-86" title="Go to source code">getName</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#87-93" title="Go to source code">getName</a>( )</code>
 
 		<div class="description short">
 			<p>Get name of the entity</p>
@@ -407,7 +413,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPk">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#88-95" title="Go to source code">getPk</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#95-102" title="Go to source code">getPk</a>( )</code>
 
 		<div class="description short">
 			<p>Get primary key of entity</p>
@@ -441,7 +447,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFields">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#97-112" title="Go to source code">getFields</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#104-119" title="Go to source code">getFields</a>( )</code>
 
 		<div class="description short">
 			<p>Get list of all fields.
@@ -477,7 +483,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAssociations">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#114-120" title="Go to source code">getAssociations</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#121-127" title="Go to source code">getAssociations</a>( )</code>
 
 		<div class="description short">
 			<p>Get list of associations</p>
@@ -511,7 +517,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getAssociation">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#122-132" title="Go to source code">getAssociation</a>( <span>string <var>$name</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#129-139" title="Go to source code">getAssociation</a>( <span>string <var>$name</var></span> )</code>
 
 		<div class="description short">
 			<p>Retruns an association by name</p>
@@ -550,7 +556,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createEntityFromSource">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#134-148" title="Go to source code">createEntityFromSource</a>( <span>object <var>$data</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#141-155" title="Go to source code">createEntityFromSource</a>( <span>object <var>$data</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a new entity object from data source usign only fields and applying restrictions</p>
@@ -589,7 +595,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_createEntityListFromSource">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#150-163" title="Go to source code">createEntityListFromSource</a>( <span>object[] <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#157-170" title="Go to source code">createEntityListFromSource</a>( <span>object[] <var>$list</var></span> )</code>
 
 		<div class="description short">
 			<p>Creates a list of new entity objects from data source usign only fields applying restrictions</p>
@@ -628,7 +634,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_prepareEntityForOuput">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#165-201" title="Go to source code">prepareEntityForOuput</a>( <span>object <var>$element</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#172-208" title="Go to source code">prepareEntityForOuput</a>( <span>object <var>$element</var></span> )</code>
 
 		<div class="description short">
 			<p>Transform an entity</p>
@@ -667,7 +673,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_prepareEntityListForOutput">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#203-219" title="Go to source code">prepareEntityListForOutput</a>( <span>object[] <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#210-226" title="Go to source code">prepareEntityListForOutput</a>( <span>object[] <var>$list</var></span> )</code>
 
 		<div class="description short">
 			<p>Transform a list of entities</p>
@@ -706,7 +712,7 @@ If they aren't declared, will be discovered</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_security_allowedMethod">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#221-229" title="Go to source code">security_allowedMethod</a>( <span>string <var>$method</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#228-236" title="Go to source code">security_allowedMethod</a>( <span>string <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>Returns true if method is allowed, otherways false
@@ -747,7 +753,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_security_visibleField">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#231-238" title="Go to source code">security_visibleField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span> <var>$entity</var></span>, <span> <var>$value</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#238-245" title="Go to source code">security_visibleField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span> <var>$entity</var></span>, <span> <var>$value</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if field is visible in result</p>
@@ -790,7 +796,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_sequrity_visibleEntity">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#240-246" title="Go to source code">sequrity_visibleEntity</a>( <span> <var>$entity</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#247-253" title="Go to source code">sequrity_visibleEntity</a>( <span> <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if an entity will returned</p>
@@ -824,7 +830,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_security_allowExtends">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#248-255" title="Go to source code">security_allowExtends</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></code> <var>$association</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#255-262" title="Go to source code">security_allowExtends</a>( <span><code><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></code> <var>$association</var></span> )</code>
 
 		<div class="description short">
 			<p>Check if it is allowed to extends</p>
@@ -863,7 +869,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_security_preprocesInputField">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#257-265" title="Go to source code">security_preprocesInputField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span>string <var>$value</var></span>, <span> <var>$method</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#264-272" title="Go to source code">security_preprocesInputField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span>string <var>$value</var></span>, <span> <var>$method</var></span> )</code>
 
 		<div class="description short">
 			<p>Transform a value of a field</p>
@@ -906,7 +912,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_db_conditions">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#267-273" title="Go to source code">query_db_conditions</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#274-280" title="Go to source code">query_db_conditions</a>( )</code>
 
 		<div class="description short">
 			<p>Returns an aggregator for query conditions</p>
@@ -940,7 +946,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_db_orderby">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#275-281" title="Go to source code">query_db_orderby</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#282-288" title="Go to source code">query_db_orderby</a>( )</code>
 
 		<div class="description short">
 			<p>Returns a list of orderby elements to sort the result</p>
@@ -974,7 +980,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_db_limit">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#283-289" title="Go to source code">query_db_limit</a>( )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#290-296" title="Go to source code">query_db_limit</a>( )</code>
 
 		<div class="description short">
 			<p>Returns the limit to return</p>
@@ -1008,7 +1014,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_postprocessField">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#291-293" title="Go to source code">query_postprocessField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span> <var>$entity</var></span>, <span> <var>$value</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#298-300" title="Go to source code">query_postprocessField</a>( <span><code><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></code> <var>$field</var></span>, <span> <var>$entity</var></span>, <span> <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1038,7 +1044,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_postprocessEntity">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#295-297" title="Go to source code">query_postprocessEntity</a>( <span> <var>$entity</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#302-304" title="Go to source code">query_postprocessEntity</a>( <span> <var>$entity</var></span> )</code>
 
 		<div class="description short">
 			
@@ -1068,7 +1074,7 @@ By default uses defaultAllowedMethods from configuration options</p>
 
 		<td class="name"><div>
 		<a class="anchor" href="#_query_postprocessList">#</a>
-		<code><a href="source-class-ODataSchemeEntity.html#299-301" title="Go to source code">query_postprocessList</a>( <span> <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataSchemeEntity.html#306-308" title="Go to source code">query_postprocessList</a>( <span> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			

@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -139,7 +145,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 				<b>Author:</b>
 				ilausuch<br>
-			<b>Located at</b> <a href="source-class-ODataSchemePrimitive.html#9-227" title="Go to source code">src/scheme/ODataSchemePrimitive.php</a>
+			<b>Located at</b> <a href="source-class-ODataSchemePrimitive.html#10-228" title="Go to source code">src/scheme/ODataSchemePrimitive.php</a>
 		<br>
 	</div>
 
@@ -159,7 +165,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#183-185" title="Go to source code">__construct</a>( <span> <var>$type</var></span> )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#184-186" title="Go to source code">__construct</a>( <span> <var>$type</var></span> )</code>
 
 		<div class="description short">
 			
@@ -189,7 +195,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getType">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#187-189" title="Go to source code">getType</a>( )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#188-190" title="Go to source code">getType</a>( )</code>
 
 		<div class="description short">
 			
@@ -219,7 +225,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isNumerical">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#191-202" title="Go to source code">isNumerical</a>( )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#192-203" title="Go to source code">isNumerical</a>( )</code>
 
 		<div class="description short">
 			
@@ -249,7 +255,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isFloat">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#204-210" title="Go to source code">isFloat</a>( )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#205-211" title="Go to source code">isFloat</a>( )</code>
 
 		<div class="description short">
 			
@@ -279,7 +285,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isInteger">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#212-220" title="Go to source code">isInteger</a>( )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#213-221" title="Go to source code">isInteger</a>( )</code>
 
 		<div class="description short">
 			
@@ -309,7 +315,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 
 		<td class="name"><div>
 		<a class="anchor" href="#_isString">#</a>
-		<code><a href="source-class-ODataSchemePrimitive.html#222-226" title="Go to source code">isString</a>( )</code>
+		<code><a href="source-class-ODataSchemePrimitive.html#223-227" title="Go to source code">isString</a>( )</code>
 
 		<div class="description short">
 			
@@ -343,7 +349,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#15-18" title="Go to source code"><b>Binary</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#16-19" title="Go to source code"><b>Binary</b></a>
 			</code>
 
 			<div class="description short">
@@ -367,7 +373,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#20-23" title="Go to source code"><b>Boolean</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#21-24" title="Go to source code"><b>Boolean</b></a>
 			</code>
 
 			<div class="description short">
@@ -391,7 +397,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#25-28" title="Go to source code"><b>Byte</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#26-29" title="Go to source code"><b>Byte</b></a>
 			</code>
 
 			<div class="description short">
@@ -415,7 +421,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#30-33" title="Go to source code"><b>Date</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#31-34" title="Go to source code"><b>Date</b></a>
 			</code>
 
 			<div class="description short">
@@ -439,7 +445,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#35-38" title="Go to source code"><b>DateTimeOffset</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#36-39" title="Go to source code"><b>DateTimeOffset</b></a>
 			</code>
 
 			<div class="description short">
@@ -463,7 +469,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#40-43" title="Go to source code"><b>Decimal</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#41-44" title="Go to source code"><b>Decimal</b></a>
 			</code>
 
 			<div class="description short">
@@ -487,7 +493,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#45-48" title="Go to source code"><b>Double</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#46-49" title="Go to source code"><b>Double</b></a>
 			</code>
 
 			<div class="description short">
@@ -511,7 +517,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#50-53" title="Go to source code"><b>Duration</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#51-54" title="Go to source code"><b>Duration</b></a>
 			</code>
 
 			<div class="description short">
@@ -535,7 +541,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#55-58" title="Go to source code"><b>Guid</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#56-59" title="Go to source code"><b>Guid</b></a>
 			</code>
 
 			<div class="description short">
@@ -559,7 +565,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#60-63" title="Go to source code"><b>Int16</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#61-64" title="Go to source code"><b>Int16</b></a>
 			</code>
 
 			<div class="description short">
@@ -583,7 +589,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#65-68" title="Go to source code"><b>Int32</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#66-69" title="Go to source code"><b>Int32</b></a>
 			</code>
 
 			<div class="description short">
@@ -607,7 +613,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#70-73" title="Go to source code"><b>Int64</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#71-74" title="Go to source code"><b>Int64</b></a>
 			</code>
 
 			<div class="description short">
@@ -631,7 +637,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#75-78" title="Go to source code"><b>SByte</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#76-79" title="Go to source code"><b>SByte</b></a>
 			</code>
 
 			<div class="description short">
@@ -655,7 +661,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#80-83" title="Go to source code"><b>Single</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#81-84" title="Go to source code"><b>Single</b></a>
 			</code>
 
 			<div class="description short">
@@ -679,7 +685,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#85-88" title="Go to source code"><b>Stream</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#86-89" title="Go to source code"><b>Stream</b></a>
 			</code>
 
 			<div class="description short">
@@ -703,7 +709,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#90-93" title="Go to source code"><b>String</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#91-94" title="Go to source code"><b>String</b></a>
 			</code>
 
 			<div class="description short">
@@ -727,7 +733,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#95-98" title="Go to source code"><b>TimeOfDay</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#96-99" title="Go to source code"><b>TimeOfDay</b></a>
 			</code>
 
 			<div class="description short">
@@ -751,7 +757,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#100-103" title="Go to source code"><b>Geography</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#101-104" title="Go to source code"><b>Geography</b></a>
 			</code>
 
 			<div class="description short">
@@ -775,7 +781,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#105-108" title="Go to source code"><b>GeographyPoint</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#106-109" title="Go to source code"><b>GeographyPoint</b></a>
 			</code>
 
 			<div class="description short">
@@ -799,7 +805,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#110-113" title="Go to source code"><b>GeographyLineString</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#111-114" title="Go to source code"><b>GeographyLineString</b></a>
 			</code>
 
 			<div class="description short">
@@ -823,7 +829,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#115-118" title="Go to source code"><b>GeographyPolygon</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#116-119" title="Go to source code"><b>GeographyPolygon</b></a>
 			</code>
 
 			<div class="description short">
@@ -847,7 +853,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#120-123" title="Go to source code"><b>GeographyMultiPoint</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#121-124" title="Go to source code"><b>GeographyMultiPoint</b></a>
 			</code>
 
 			<div class="description short">
@@ -871,7 +877,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#125-128" title="Go to source code"><b>GeographyMultiLineString</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#126-129" title="Go to source code"><b>GeographyMultiLineString</b></a>
 			</code>
 
 			<div class="description short">
@@ -895,7 +901,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#130-133" title="Go to source code"><b>GeographyMultiPolygon</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#131-134" title="Go to source code"><b>GeographyMultiPolygon</b></a>
 			</code>
 
 			<div class="description short">
@@ -919,7 +925,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#135-138" title="Go to source code"><b>GeographyCollection</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#136-139" title="Go to source code"><b>GeographyCollection</b></a>
 			</code>
 
 			<div class="description short">
@@ -943,7 +949,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#140-143" title="Go to source code"><b>Geometry</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#141-144" title="Go to source code"><b>Geometry</b></a>
 			</code>
 
 			<div class="description short">
@@ -967,7 +973,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#145-148" title="Go to source code"><b>GeometryPoint</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#146-149" title="Go to source code"><b>GeometryPoint</b></a>
 			</code>
 
 			<div class="description short">
@@ -991,7 +997,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#150-153" title="Go to source code"><b>GeometryLineString</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#151-154" title="Go to source code"><b>GeometryLineString</b></a>
 			</code>
 
 			<div class="description short">
@@ -1015,7 +1021,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#155-158" title="Go to source code"><b>GeometryPolygon</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#156-159" title="Go to source code"><b>GeometryPolygon</b></a>
 			</code>
 
 			<div class="description short">
@@ -1039,7 +1045,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#160-163" title="Go to source code"><b>GeometryMultiPoint</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#161-164" title="Go to source code"><b>GeometryMultiPoint</b></a>
 			</code>
 
 			<div class="description short">
@@ -1063,7 +1069,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#165-168" title="Go to source code"><b>GeometryMultiLineString</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#166-169" title="Go to source code"><b>GeometryMultiLineString</b></a>
 			</code>
 
 			<div class="description short">
@@ -1087,7 +1093,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#170-173" title="Go to source code"><b>GeometryMultiPolygon</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#171-174" title="Go to source code"><b>GeometryMultiPolygon</b></a>
 			</code>
 
 			<div class="description short">
@@ -1111,7 +1117,7 @@ Ref: http://docs.oasis-open.org/odata/odata/v4.0/errata03/os/complete/part3-csdl
 		<td class="attributes"><code>string</code></td>
 		<td class="name">
 			<code>
-				<a href="source-class-ODataSchemePrimitive.html#175-178" title="Go to source code"><b>GeometryCollection</b></a>
+				<a href="source-class-ODataSchemePrimitive.html#176-179" title="Go to source code"><b>GeometryCollection</b></a>
 			</code>
 
 			<div class="description short">

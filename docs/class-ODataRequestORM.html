@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class ODataRequestORM | PhpOData</title>
+
+	<link rel="stylesheet" href="resources/style.css?c2f33731c1948fbed7c333554678bfa68d4817da">
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+				<li class="active">
+					<a href="namespace-None.html">
+						None					</a>
+
+						</li>
+				<li>
+					<a href="namespace-PHP.html">
+						PHP					</a>
+
+						</li>
+			</ul>
+		</div>
+
+		<hr>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-OData.html">OData</a></li>
+				<li><a href="class-ODataContext.html">ODataContext</a></li>
+				<li><a href="class-ODataCrypt.html">ODataCrypt</a></li>
+				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
+				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
+				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
+				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
+				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
+				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
+				<li><a href="class-ODataQueryExand.html">ODataQueryExand</a></li>
+				<li><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></li>
+				<li><a href="class-ODataQueryFilterBase.html">ODataQueryFilterBase</a></li>
+				<li><a href="class-ODataQueryFilterComparator.html">ODataQueryFilterComparator</a></li>
+				<li><a href="class-ODataQueryFilterOperation.html">ODataQueryFilterOperation</a></li>
+				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
+				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
+				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li class="active"><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
+				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
+				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
+				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
+				<li><a href="class-ODataSchemeEntityAssociationRelationField.html">ODataSchemeEntityAssociationRelationField</a></li>
+				<li><a href="class-ODataSchemeEntityField.html">ODataSchemeEntityField</a></li>
+				<li><a href="class-ODataSchemeEntityGeneralTools.html">ODataSchemeEntityGeneralTools</a></li>
+				<li><a href="class-ODataSchemePrimitive.html">ODataSchemePrimitive</a></li>
+				<li><a href="class-Purchase.html">Purchase</a></li>
+				<li><a href="class-PurchaseProduct.html">PurchaseProduct</a></li>
+				<li><a href="class-User.html">User</a></li>
+			</ul>
+
+
+
+
+
+			<h3>Functions</h3>
+			<ul>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
+			</ul>
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="">
+		<input type="hidden" name="ie" value="UTF-8">
+		<input type="text" name="q" class="text" placeholder="Search">
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="namespace-None.html" title="Summary of None"><span>Namespace</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+				<li>
+					<a href="annotation-group-todo.html" title="List of elements with todo annotation">
+						<span>Todo</span>
+					</a>
+				</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class ODataRequestORM</h1>
+
+
+	<div class="description">
+	<p>ODataRequestORM allows to query directly to OData with out a backend call</p>
+	</div>
+
+	<dl class="tree">
+		<dd style="padding-left:0px">
+			<a href="class-ODataRequest.html"><span>ODataRequest</span></a>
+			
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>ODataRequestORM</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		
+
+				<b>Author:</b>
+				ilausuch<br>
+			<b>Located at</b> <a href="source-class-ODataRequestORM.html#10-151" title="Go to source code">src/io/ODataRequestORM.php</a>
+		<br>
+	</div>
+
+
+
+	<table class="summary methods" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-ODataRequestORM.html#16-19" title="Go to source code">__construct</a>( <span> <var>$entity</var></span>, <span> <var>$method</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Pk" id="_Pk">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Pk">#</a>
+		<code><a href="source-class-ODataRequestORM.html#21-33" title="Go to source code">Pk</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the primary key</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the primary key</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Body" id="_Body">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Body">#</a>
+		<code><a href="source-class-ODataRequestORM.html#35-43" title="Go to source code">Body</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the body data for create and modify</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the body data for create and modify</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Filter" id="_Filter">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Filter">#</a>
+		<code><a href="source-class-ODataRequestORM.html#45-53" title="Go to source code">Filter</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set filter of query</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set filter of query</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Expand" id="_Expand">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Expand">#</a>
+		<code><a href="source-class-ODataRequestORM.html#55-63" title="Go to source code">Expand</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set expand for query</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set expand for query</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Select" id="_Select">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Select">#</a>
+		<code><a href="source-class-ODataRequestORM.html#65-75" title="Go to source code">Select</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set select for query</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set select for query</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="OrderBy" id="_OrderBy">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_OrderBy">#</a>
+		<code><a href="source-class-ODataRequestORM.html#77-85" title="Go to source code">OrderBy</a>( <span>string <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set ordery by for query</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set ordery by for query</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Top" id="_Top">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Top">#</a>
+		<code><a href="source-class-ODataRequestORM.html#87-95" title="Go to source code">Top</a>( <span>integer <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the maximun number of elements to return</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the maximun number of elements to return</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Limit" id="_Limit">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Limit">#</a>
+		<code><a href="source-class-ODataRequestORM.html#97-105" title="Go to source code">Limit</a>( <span>integer <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the maximun number of elements to return</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the maximun number of elements to return</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Skip" id="_Skip">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Skip">#</a>
+		<code><a href="source-class-ODataRequestORM.html#107-115" title="Go to source code">Skip</a>( <span>integer <var>$value</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the number of elements to ignore</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the number of elements to ignore</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="page" id="_page">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_page">#</a>
+		<code><a href="source-class-ODataRequestORM.html#117-127" title="Go to source code">page</a>( <span>integer <var>$page</var></span>, <span>integer <var>$countPerPage</var></span> )</code>
+
+		<div class="description short">
+			<p>Set the page to return of a query</p>
+		</div>
+
+		<div class="description detailed hidden">
+			<p>Set the page to return of a query</p>
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$page</var></dt>
+					<dd></dd>
+					<dt><var>$countPerPage</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Count" id="_Count">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Count">#</a>
+		<code><a href="source-class-ODataRequestORM.html#129-138" title="Go to source code">Count</a>( <span>type <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Search" id="_Search">
+
+		<td class="attributes"><code>
+			 public 
+
+			<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Search">#</a>
+		<code><a href="source-class-ODataRequestORM.html#140-149" title="Go to source code">Search</a>( <span>type <var>$value</var></span> )</code>
+
+		<div class="description short">
+			
+		</div>
+
+		<div class="description detailed hidden">
+			
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$value</var></dt>
+					<dd></dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><a href="class-ODataRequestORM.html">ODataRequestORM</a></code>
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+	<table class="summary inherited">
+	<caption>Methods inherited from <a href="class-ODataRequest.html#methods">ODataRequest</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ODataRequest.html#_getBody">getBody()</a>, 
+			<a href="class-ODataRequest.html#_getCount">getCount()</a>, 
+			<a href="class-ODataRequest.html#_getEntity">getEntity()</a>, 
+			<a href="class-ODataRequest.html#_getExpand">getExpand()</a>, 
+			<a href="class-ODataRequest.html#_getFilter">getFilter()</a>, 
+			<a href="class-ODataRequest.html#_getFormat">getFormat()</a>, 
+			<a href="class-ODataRequest.html#_getMethod">getMethod()</a>, 
+			<a href="class-ODataRequest.html#_getOrderBy">getOrderBy()</a>, 
+			<a href="class-ODataRequest.html#_getPk">getPk()</a>, 
+			<a href="class-ODataRequest.html#_getSearch">getSearch()</a>, 
+			<a href="class-ODataRequest.html#_getSelect">getSelect()</a>, 
+			<a href="class-ODataRequest.html#_getSkip">getSkip()</a>, 
+			<a href="class-ODataRequest.html#_getTop">getTop()</a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+	<table class="summary inherited">
+	<caption>Constants inherited from <a href="class-ODataRequest.html#constants">ODataRequest</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ODataRequest.html#METHOD_DELETE"><b>METHOD_DELETE</b></a>, 
+			<a href="class-ODataRequest.html#METHOD_GET"><b>METHOD_GET</b></a>, 
+			<a href="class-ODataRequest.html#METHOD_PATCH"><b>METHOD_PATCH</b></a>, 
+			<a href="class-ODataRequest.html#METHOD_POST"><b>METHOD_POST</b></a>, 
+			<a href="class-ODataRequest.html#METHOD_PUT"><b>METHOD_PUT</b></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+	<table class="summary inherited">
+	<caption>Properties inherited from <a href="class-ODataRequest.html#properties">ODataRequest</a></caption>
+	<tr>
+		<td><code>
+			<a href="class-ODataRequest.html#$body"><var>$body</var></a>, 
+			<a href="class-ODataRequest.html#$count"><var>$count</var></a>, 
+			<a href="class-ODataRequest.html#$entity"><var>$entity</var></a>, 
+			<a href="class-ODataRequest.html#$expand"><var>$expand</var></a>, 
+			<a href="class-ODataRequest.html#$filter"><var>$filter</var></a>, 
+			<a href="class-ODataRequest.html#$format"><var>$format</var></a>, 
+			<a href="class-ODataRequest.html#$isGuid"><var>$isGuid</var></a>, 
+			<a href="class-ODataRequest.html#$method"><var>$method</var></a>, 
+			<a href="class-ODataRequest.html#$pk"><var>$pk</var></a>, 
+			<a href="class-ODataRequest.html#$search"><var>$search</var></a>, 
+			<a href="class-ODataRequest.html#$select"><var>$select</var></a>, 
+			<a href="class-ODataRequest.html#$skip"><var>$skip</var></a>, 
+			<a href="class-ODataRequest.html#$top"><var>$top</var></a>
+		</code></td>
+	</tr>
+	</table>
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		PhpOData API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>

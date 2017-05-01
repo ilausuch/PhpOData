@@ -1,4 +1,11 @@
 <?php
+/*
+* The MIT License
+* http://creativecommons.org/licenses/MIT/
+*
+*  PhpOData (github.com/ilausuch/PhpOData)
+* Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
+*/
 
 class ODataDBAdapter{
     protected $dsn;
@@ -25,7 +32,7 @@ class ODataDBAdapter{
                 $this->db = new \PDO($this->dsn,$this->user,$this->password,$this->options);
                 $this->connected=true;
             }catch(PDOException $e) {
-                ODataHTTP::error (ODataHTTP::E_internal_error, "Cannot connect to DB");
+                throw new Exception("Cannot connect to DB",ODataResponse::E_internal_error);
             }
         }
     }

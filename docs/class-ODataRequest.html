@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li class="active"><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -121,6 +127,11 @@
 
 
 
+	<div>
+		<h4>Direct known subclasses</h4>
+			<a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a>, 
+			<a href="class-ODataRequestORM.html">ODataRequestORM</a>
+	</div>
 
 
 
@@ -133,7 +144,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataRequest.html#5-92" title="Go to source code">src/io/ODataRequest.php</a>
+			<b>Located at</b> <a href="source-class-ODataRequest.html#10-49" title="Go to source code">src/io/ODataRequest.php</a>
 		<br>
 	</div>
 
@@ -141,66 +152,6 @@
 
 	<table class="summary methods" id="methods">
 	<caption>Methods summary</caption>
-	<tr data-order="__construct" id="___construct">
-
-		<td class="attributes"><code>
-			 public 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataRequest.html#22-28" title="Go to source code">__construct</a>( <span>Psr\Http\Message\ServerRequestInterface <var>$request</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
-	<tr data-order="prepare" id="_prepare">
-
-		<td class="attributes"><code>
-			 protected 
-
-			
-			
-			</code>
-		</td>
-
-		<td class="name"><div>
-		<a class="anchor" href="#_prepare">#</a>
-		<code><a href="source-class-ODataRequest.html#30-74" title="Go to source code">prepare</a>( <span> <var>$method</var></span>, <span> <var>$entityQueryStr</var></span>, <span> <var>$body</var></span> )</code>
-
-		<div class="description short">
-			
-		</div>
-
-		<div class="description detailed hidden">
-			
-
-
-
-
-
-
-
-		</div>
-		</div></td>
-	</tr>
 	<tr data-order="getEntity" id="_getEntity">
 
 		<td class="attributes"><code>
@@ -213,7 +164,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getEntity">#</a>
-		<code><a href="source-class-ODataRequest.html#76" title="Go to source code">getEntity</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#34" title="Go to source code">getEntity</a>( )</code>
 
 		<div class="description short">
 			
@@ -243,7 +194,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getPk">#</a>
-		<code><a href="source-class-ODataRequest.html#77" title="Go to source code">getPk</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#35" title="Go to source code">getPk</a>( )</code>
 
 		<div class="description short">
 			
@@ -273,7 +224,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getMethod">#</a>
-		<code><a href="source-class-ODataRequest.html#78" title="Go to source code">getMethod</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#36" title="Go to source code">getMethod</a>( )</code>
 
 		<div class="description short">
 			
@@ -303,7 +254,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getBody">#</a>
-		<code><a href="source-class-ODataRequest.html#79" title="Go to source code">getBody</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#37" title="Go to source code">getBody</a>( )</code>
 
 		<div class="description short">
 			
@@ -333,7 +284,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilter">#</a>
-		<code><a href="source-class-ODataRequest.html#82" title="Go to source code">getFilter</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#39" title="Go to source code">getFilter</a>( )</code>
 
 		<div class="description short">
 			
@@ -363,7 +314,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExpand">#</a>
-		<code><a href="source-class-ODataRequest.html#83" title="Go to source code">getExpand</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#40" title="Go to source code">getExpand</a>( )</code>
 
 		<div class="description short">
 			
@@ -393,7 +344,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSelect">#</a>
-		<code><a href="source-class-ODataRequest.html#84" title="Go to source code">getSelect</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#41" title="Go to source code">getSelect</a>( )</code>
 
 		<div class="description short">
 			
@@ -423,7 +374,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrderBy">#</a>
-		<code><a href="source-class-ODataRequest.html#85" title="Go to source code">getOrderBy</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#42" title="Go to source code">getOrderBy</a>( )</code>
 
 		<div class="description short">
 			
@@ -453,7 +404,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getTop">#</a>
-		<code><a href="source-class-ODataRequest.html#86" title="Go to source code">getTop</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#43" title="Go to source code">getTop</a>( )</code>
 
 		<div class="description short">
 			
@@ -483,7 +434,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSkip">#</a>
-		<code><a href="source-class-ODataRequest.html#87" title="Go to source code">getSkip</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#44" title="Go to source code">getSkip</a>( )</code>
 
 		<div class="description short">
 			
@@ -513,7 +464,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getCount">#</a>
-		<code><a href="source-class-ODataRequest.html#88" title="Go to source code">getCount</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#45" title="Go to source code">getCount</a>( )</code>
 
 		<div class="description short">
 			
@@ -543,7 +494,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSearch">#</a>
-		<code><a href="source-class-ODataRequest.html#89" title="Go to source code">getSearch</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#46" title="Go to source code">getSearch</a>( )</code>
 
 		<div class="description short">
 			
@@ -573,7 +524,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFormat">#</a>
-		<code><a href="source-class-ODataRequest.html#90" title="Go to source code">getFormat</a>( )</code>
+		<code><a href="source-class-ODataRequest.html#47" title="Go to source code">getFormat</a>( )</code>
 
 		<div class="description short">
 			
@@ -600,10 +551,461 @@
 
 
 
+	<table class="summary constants" id="constants">
+	<caption>Constants summary</caption>
+	<tr data-order="METHOD_GET" id="METHOD_GET">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-ODataRequest.html#12" title="Go to source code"><b>METHOD_GET</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#METHOD_GET" class="anchor">#</a>
+				<code><span class="php-quote">&quot;GET&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="METHOD_POST" id="METHOD_POST">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-ODataRequest.html#13" title="Go to source code"><b>METHOD_POST</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#METHOD_POST" class="anchor">#</a>
+				<code><span class="php-quote">&quot;POST&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="METHOD_PUT" id="METHOD_PUT">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-ODataRequest.html#14" title="Go to source code"><b>METHOD_PUT</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#METHOD_PUT" class="anchor">#</a>
+				<code><span class="php-quote">&quot;PUT&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="METHOD_PATCH" id="METHOD_PATCH">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-ODataRequest.html#15" title="Go to source code"><b>METHOD_PATCH</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#METHOD_PATCH" class="anchor">#</a>
+				<code><span class="php-quote">&quot;PATCH&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="METHOD_DELETE" id="METHOD_DELETE">
+
+		<td class="attributes"><code>string</code></td>
+		<td class="name">
+			<code>
+				<a href="source-class-ODataRequest.html#16" title="Go to source code"><b>METHOD_DELETE</b></a>
+			</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#METHOD_DELETE" class="anchor">#</a>
+				<code><span class="php-quote">&quot;DELETE&quot;</span></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 
 
+	<table class="summary properties" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="entity" id="$entity">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#18" title="Go to source code"><var>$entity</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$entity" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="pk" id="$pk">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#19" title="Go to source code"><var>$pk</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$pk" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="isGuid" id="$isGuid">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#20" title="Go to source code"><var>$isGuid</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$isGuid" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="method" id="$method">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#21" title="Go to source code"><var>$method</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$method" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="body" id="$body">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#22" title="Go to source code"><var>$body</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$body" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="filter" id="$filter">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#24" title="Go to source code"><var>$filter</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$filter" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="expand" id="$expand">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#25" title="Go to source code"><var>$expand</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$expand" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="select" id="$select">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#26" title="Go to source code"><var>$select</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$select" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="top" id="$top">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#27" title="Go to source code"><var>$top</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$top" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="skip" id="$skip">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#28" title="Go to source code"><var>$skip</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$skip" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="count" id="$count">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#29" title="Go to source code"><var>$count</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$count" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="search" id="$search">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#30" title="Go to source code"><var>$search</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$search" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	<tr data-order="format" id="$format">
+		<td class="attributes"><code>
+			protected  
+			
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-ODataRequest.html#31" title="Go to source code"><var>$format</var></a>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+			</div>
+		</td>
+		<td class="value">
+			<div>
+				<a href="#$format" class="anchor">#</a>
+				<code></code>
+			</div>
+		</td>
+	</tr>
+	</table>
 
 
 

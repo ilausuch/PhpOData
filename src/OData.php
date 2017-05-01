@@ -1,12 +1,11 @@
 <?php
-
-/**
+/*
 * The MIT License
 * http://creativecommons.org/licenses/MIT/
 *
 *  PhpOData (github.com/ilausuch/PhpOData)
 * Copyright (c) 2016 Ivan Lausuch <ilausuch@gmail.com>
-**/
+*/
 
 use \Psr\Http\Message\ServerRequestInterface as Request;
 use \Psr\Http\Message\ResponseInterface as Response;
@@ -19,8 +18,11 @@ require_once("scheme/ODataSchemeEntityField.php");
 require_once("scheme/ODataSchemeEntityAssociation.php");
 require_once("scheme/ODataSchemeEntityAssociationRelationField.php");
 require_once("scheme/ODataSchemePrimitive.php");
-require_once("io/ODataHTTP.php");
 require_once("io/ODataRequest.php");
+require_once("io/ODataRequestHTTP.php");
+require_once("io/ODataRequestORM.php");
+require_once("io/ODataResponse.php");
+require_once("io/ODataResponseHTTP.php");
 require_once("query/ODataQuery.php");
 require_once("query/ODataQueryFilterBase.php");
 require_once("query/ODataQueryFilterAggregator.php");
@@ -126,7 +128,7 @@ class OData{
         if (isset($scheme))
             return $scheme;
         else
-            ODataHTTP::error (ODataHTTP::E_not_implemented, "Scheme for {$entityName} isn't defined");
+            throw new Exception("Scheme for {$entityName} isn't defined", ODataResponseHTTP::E_not_implemented);
     }
     
     /**
@@ -146,13 +148,35 @@ class OData{
         $app->run();
     }
     
+    /**
+     * If you already have an Slim app created, you can created the rule directly
+     * @param SlimApp $app
+     */
     public function setSlimRule($app){
         $app->any('/odata/{entityQueryStr}', function (Request $requestSlim, Response $responseSlim,$args) {
             return OData::$object->execute($requestSlim, $responseSlim, $args);
         });
     }
     
-    public function execute(Request $requestSlim, Response $responseSlim,$args){
+    /**
+     * Execute OData query without HTTP output
+     * @param ODataRequest $request
+     * @return ODataResponse
+     */
+    public function executeLocal(ODataRequest $request){
+        $response=new ODataResponse();
+        $this->serve($request,$response);
+        return $response;
+    }
+    
+    /**
+     * Internal execution function
+     * @param Request $requestSlim
+     * @param Response $responseSlim
+     * @param type $args
+     */
+    protected function execute(Request $requestSlim, Response $responseSlim,$args){
+        
         //Check cli
         $this->checkCli();
 
@@ -169,47 +193,57 @@ class OData{
         $this->queryMethodModifiers();
 
         //Prepare request
-        $request=new ODataRequest($requestSlim);
-        $request->prepare(
-            $requestSlim->getMethod(),
-            $requestSlim->getAttribute('entityQueryStr'),
-            $requestSlim->getBody()->read(1000000)
-        );
-        
+        $request=new ODataRequestHTTP($requestSlim);
         //Run server
-        $this->serve($request);
+        try{
+            $response=$this->executeLocal($request);
+            
+            switch($request->getMethod()){
+                case ODataRequest::METHOD_GET:
+                    ODataResponseHTTP::successArray($response->getData());
+                    break;
+                case ODataRequest::METHOD_POST:
+                    ODataResponseHTTP::successCreatedElement($response->getData());
+                    break;
+                case ODataRequest::METHOD_PATCH:
+                    ODataResponseHTTP::successModifiedElement($response->getData());
+                    break;
+                case ODataRequest::METHOD_DELETE:
+                    ODataResponseHTTP::successDeletedElement();
+                    break;
+            }
+        }catch(Exception $e){
+            ODataResponseHTTP::errorException($e);
+        }
         
-        return $responseSlim;
     }
     
-    public function executeLocal(ODataRequest $request){
-        return $this->serve($request);
-    }
+   
     
     /**
      * Serves a request
      * @param ODataRequest $request
      */
-    protected function serve(ODataRequest $request){
+    protected function serve(ODataRequest $request, ODataResponse $response){
         
         //Check auth
         //TODO $this->checkAuth();
         
         switch($request->getMethod()){
-            case "GET":
-                return $this->serveGet($request);
+            case ODataRequest::METHOD_GET:
+                $this->serveGet($request, $response);
             break;
-            case "POST":
-                return $this->servePost($request);
+            case ODataRequest::METHOD_POST:
+                $this->servePost($request, $response);
             break;
-            case "PATCH":
-                return $this->servePatch($request);
+            case ODataRequest::METHOD_PATCH:
+                $this->servePatch($request, $response);
             break;
-            case "DELETE":
-                return $this->serveDelete($request);
+            case ODataRequest::METHOD_DELETE:
+                $this->serveDelete($request, $response);
             break;
             default:
-                ODataHTTP::error(ODataHTTP::E_not_implemented, $request->getMethod(). "method is not implememn");
+                $response->error(ODataResponse::E_not_implemented, $request->getMethod(). "method is not implememn");
         }
         
     }
@@ -217,8 +251,9 @@ class OData{
     /**
      * Get service (Query)
      * @param ODataRequest $request
+     * @param ODataResponse $response
      */
-    protected function serveGet(ODataRequest $request){
+    protected function serveGet(ODataRequest $request, ODataResponse $response){
         //Get scheme
         list($table,$scheme)=$this->prepareOperation($request);
         
@@ -229,7 +264,7 @@ class OData{
         $schemePk=$scheme->getPk();
         
         if (count($schemePk)==0){
-            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$scheme->getName()." has not Primary key");
+            throw Exception("Table ".$scheme->getName()." has not Primary key",ODataResponse::E_internal_error);
         }
         else{
             if (count($schemePk)==1){
@@ -248,18 +283,17 @@ class OData{
                         );
                     else
                         //TODO: Implement multiple
-                        ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+                        throw Exception("Multiple primary keys are not implemented yet.",ODataResponse::E_not_implemented);
             }
             else{
                 //TODO : Prepare WHERE with multiples Ids
-                ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+                throw Exception("Multiple primary keys are not implemented yet.",ODataResponse::E_not_implemented);
             }
         }
         
         //Setup filter
         if ($request->getFilter()!=null)
             $query->setFilter(ODataFilterParser::parse($request->getFilter()));
-        
         
         //Extract extra conditions from Entity scheme
         $externalConditions=$scheme->query_db_conditions();
@@ -309,43 +343,37 @@ class OData{
             $query->setExpand($request->getExpand());
         
         
-        try{
-            $result=$this->db->query($query);
-            $result=$scheme->createEntityListFromSource($result);
-            
-            //Check if exists a expand in query
-            $expand=$query->getExpand();
-            
-            if ($expand!=null){
-                //For each entity of result
-                foreach ($result as &$entityData){
-                    //For each expand entity
-                    foreach ($expand as $expandEntity)
-                        $this->expand($entityData,$scheme,$expandEntity);
-                }
+        $result=$this->db->query($query);
+        $result=$scheme->createEntityListFromSource($result);
+
+        //Check if exists a expand in query
+        $expand=$query->getExpand();
+        if ($expand!=null){
+            //For each entity of result
+            foreach ($result as &$entityData){
+                //For each expand entity
+                foreach ($expand as $expandEntity)
+                    $this->expand($entityData,$scheme,$expandEntity);
             }
-            
-            //If exist an order sort this
-            if ($request->getOrderBy()!=null){
-                $order=ODataQueryOrderByList::parse($request->getOrderBy());
-                $result=$order->sort($result);
-            }
-            
-            $result=$scheme->prepareEntityListForOutput($result);
-            
-            
-            
-            ODataHTTP::successArray($result);
-        }catch(Exception $e){
-            ODataHTTP::errorException($e);
         }
+
+        //If exist an order sort this
+        if ($request->getOrderBy()!=null){
+            $order=ODataQueryOrderByList::parse($request->getOrderBy());
+            $result=$order->sort($result);
+        }
+        
+        $result=$scheme->prepareEntityListForOutput($result);
+        
+        $response->success($result);
+        
     }
     
     /**
      * Post service (Creation)
      * @param ODataRequest $request
      */
-    protected function servePost(ODataRequest $request){
+    protected function servePost(ODataRequest $request, ODataResponse $response){
         list($table,$scheme)=$this->prepareOperation($request);
         
         //Check body and extract element
@@ -356,21 +384,17 @@ class OData{
         //$scheme->checkNewElement($element);
         
         //Send to DB
-        try{
-            $result=$this->db->insert($element,$table);
-            
-            $result=$scheme->prepareEntityForOuput($result);
-            ODataHTTP::successCreatedElement($result);
-        }catch(Exception $ex){
-            ODataHTTP::errorException($ex);
-        }
+        $result=$this->db->insert($element,$table);
+        $result=$scheme->prepareEntityForOuput($result);
+    
+        $response->success($result);
     }
     
     /**
      * Patch service (modifications)
      * @param ODataRequest $request
      */
-    protected function servePatch(ODataRequest $request){
+    protected function servePatch(ODataRequest $request, ODataResponse $response){
         list($table,$scheme)=$this->prepareOperation($request);
         //Check body and extract element
         $element=$request->getBody();
@@ -384,31 +408,24 @@ class OData{
         //TODO: Check element
         //$tableScheme->checkNewElement($element);
         
-        //Send to DB
-        try{    
-            $result=$this->db->update($element,$table);
-            $result=$scheme->prepareEntityListForOutput($result);
-            ODataHTTP::successModifiedElement($result);
-        }catch(Exception $ex){
-            ODataHTTP::errorException($ex);
-        }
+        
+        $result=$this->db->update($element,$table);
+        $result=$scheme->prepareEntityListForOutput($result);
+        
+        $response->success($result);
     }
     
     /**
      * Delete service
      * @param ODataRequest $request
      */
-    public function serveDelete(ODataRequest $request){
+    public function serveDelete(ODataRequest $request, ODataResponse $response){
         list($table,$scheme)=$this->prepareOperation($request);
         
         $pkValues=$this->extractPK($request,$scheme);
         
-        try{
-            $this->db->delete($pkValues,$table);
-            ODataHTTP::successDeletedElement();
-        }catch(Exception $ex){
-            ODataHTTP::errorException($ex);
-        }
+        $this->db->delete($pkValues,$table);
+        $response->success();
     }
     
     protected function extractPK(ODataRequest $request, ODataSchemeEntity $scheme){
@@ -418,7 +435,7 @@ class OData{
         $result=[];
         
         if (count($schemePk)==0){
-            ODataHTTP::error(ODataHTTP::E_internal_error,"Table ".$scheme->getName()." has not Primary key");
+            throw new Exception(ODataResponse::E_internal_error,"Table ".$scheme->getName()." has not Primary key");
         }
         else{
             if (count($schemePk)==1){
@@ -436,11 +453,11 @@ class OData{
                     }
                     else
                         //TODO: Implement multiple
-                        ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+                        throw new Exception("Multiple primary keys are not implemented yet.",ODataResponse::E_not_implemented);
             }
             else{
                 //TODO : Prepare WHERE with multiples Ids
-                ODataHTTP::error(ODataHTTP::E_not_implemented,"Multiple primary keys are not implemented yet.");
+                throw new Exception("Multiple primary keys are not implemented yet.",ODataResponse::E_not_implemented);
             }
         }
         
@@ -520,7 +537,7 @@ class OData{
      */
     protected function allowAnyOrigin(){
         if (isset($this->config->allowAnyOrigin) && $this->config->allowAnyOrigin && isset($_SERVER['HTTP_ORIGIN'])) {
-            ODataHTTP::allowOrigin();
+            ODataResponseHTTP::allowOrigin();
         }
     }
     
@@ -531,11 +548,11 @@ class OData{
         if (isset($this->config->enableOptionsRequest) && $this->config->enableOptionsRequest && $_SERVER['REQUEST_METHOD'] == 'OPTIONS') {
 
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_METHOD'])) {
-                ODataHTTP::accessControlAllowMethods();
+                ODataResponseHTTP::accessControlAllowMethods();
             }
 
             if (isset($_SERVER['HTTP_ACCESS_CONTROL_REQUEST_HEADERS'])) {
-                ODataHTTP::accessControllAllowHeaders();
+                ODataResponseHTTP::accessControllAllowHeaders();
             }
 
             exit(0);
@@ -548,7 +565,7 @@ class OData{
     protected function checkClients(){
         if ((empty($this->config->clients) !== true) 
                 && (in_array($_SERVER['REMOTE_ADDR'], (array) $this->config->clients) !== true)){
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot perform this operation from this url");
+            throw new Exception("Cannot perform this operation from this url",ODataResponse::E_forbidden);
         }
     }
     
@@ -573,7 +590,7 @@ class OData{
      */
     protected function checkAuth($entity){
         if ($this->config->checkAuth($_SERVER['REQUEST_METHOD'],$entity))
-            ODataHTTP::error(ODataHTTP::E_unauthorized,"You must autenticate first");
+            throw new Exception("You must autenticate first",ODataResponse::E_unauthorized);
     }
     
     /**
@@ -602,11 +619,11 @@ class OData{
         
         //Check if operation is allowed
         if (!$this->config->allow($request))
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation");
+            throw new Exception("Cannot do this operation",ODataResponse::E_forbidden);
 	
         //Check if operation is allowed for this entity
         if (!$entityScheme->security_allowedMethod($request->getMethod()))
-            ODataHTTP::error(ODataHTTP::E_forbidden,"Cannot do this operation for ".$entityScheme->getName());
+            throw new Exception("Cannot do this operation for ".$entityScheme->getName(),ODataResponse::E_forbidden);
         
         return [$entity,$entityScheme];
     } 

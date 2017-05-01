@@ -43,7 +43,6 @@
 				<li><a href="class-ODataDBAdapter.html">ODataDBAdapter</a></li>
 				<li><a href="class-ODataFilterParser.html">ODataFilterParser</a></li>
 				<li><a href="class-ODataFilterToken.html">ODataFilterToken</a></li>
-				<li><a href="class-ODataHTTP.html">ODataHTTP</a></li>
 				<li><a href="class-ODataMysql.html">ODataMysql</a></li>
 				<li><a href="class-ODataOptions.html">ODataOptions</a></li>
 				<li class="active"><a href="class-ODataQuery.html">ODataQuery</a></li>
@@ -55,6 +54,10 @@
 				<li><a href="class-ODataQueryOrderBy.html">ODataQueryOrderBy</a></li>
 				<li><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></li>
 				<li><a href="class-ODataRequest.html">ODataRequest</a></li>
+				<li><a href="class-ODataRequestHTTP.html">ODataRequestHTTP</a></li>
+				<li><a href="class-ODataRequestORM.html">ODataRequestORM</a></li>
+				<li><a href="class-ODataResponse.html">ODataResponse</a></li>
+				<li><a href="class-ODataResponseHTTP.html">ODataResponseHTTP</a></li>
 				<li><a href="class-ODataScheme.html">ODataScheme</a></li>
 				<li><a href="class-ODataSchemeEntity.html">ODataSchemeEntity</a></li>
 				<li><a href="class-ODataSchemeEntityAssociation.html">ODataSchemeEntityAssociation</a></li>
@@ -73,7 +76,10 @@
 
 			<h3>Functions</h3>
 			<ul>
-				<li><a href="function-execute.html">execute</a></li>
+				<li><a href="function-delete.html">delete</a></li>
+				<li><a href="function-get.html">get</a></li>
+				<li><a href="function-patch.html">patch</a></li>
+				<li><a href="function-post.html">post</a></li>
 			</ul>
 		</div>
 	</div>
@@ -133,7 +139,7 @@
 		
 		
 
-			<b>Located at</b> <a href="source-class-ODataQuery.html#3-120" title="Go to source code">src/query/ODataQuery.php</a>
+			<b>Located at</b> <a href="source-class-ODataQuery.html#10-127" title="Go to source code">src/query/ODataQuery.php</a>
 		<br>
 	</div>
 
@@ -153,7 +159,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#___construct">#</a>
-		<code><a href="source-class-ODataQuery.html#24-28" title="Go to source code">__construct</a>( <span> <var>$from</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#31-35" title="Go to source code">__construct</a>( <span> <var>$from</var></span> )</code>
 
 		<div class="description short">
 			
@@ -183,7 +189,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setSelect">#</a>
-		<code><a href="source-class-ODataQuery.html#30-32" title="Go to source code">setSelect</a>( <span> <var>$list</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#37-39" title="Go to source code">setSelect</a>( <span> <var>$list</var></span> )</code>
 
 		<div class="description short">
 			
@@ -213,7 +219,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_addWhere">#</a>
-		<code><a href="source-class-ODataQuery.html#34-36" title="Go to source code">addWhere</a>( <span> <var>$id</var></span>, <span> <var>$value</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#41-43" title="Go to source code">addWhere</a>( <span> <var>$id</var></span>, <span> <var>$value</var></span> )</code>
 
 		<div class="description short">
 			
@@ -243,7 +249,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFilter">#</a>
-		<code><a href="source-class-ODataQuery.html#38-48" title="Go to source code">setFilter</a>( <span> <var>$filter</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#45-55" title="Go to source code">setFilter</a>( <span> <var>$filter</var></span> )</code>
 
 		<div class="description short">
 			
@@ -273,7 +279,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setFilterAggregator">#</a>
-		<code><a href="source-class-ODataQuery.html#51-53" title="Go to source code">setFilterAggregator</a>( <span><code><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></code> <var>$filterAggregator</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#58-60" title="Go to source code">setFilterAggregator</a>( <span><code><a href="class-ODataQueryFilterAggregator.html">ODataQueryFilterAggregator</a></code> <var>$filterAggregator</var></span> )</code>
 
 		<div class="description short">
 			
@@ -303,7 +309,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setOrder">#</a>
-		<code><a href="source-class-ODataQuery.html#55-61" title="Go to source code">setOrder</a>( <span><code><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></code> <var>$orderByList</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#62-68" title="Go to source code">setOrder</a>( <span><code><a href="class-ODataQueryOrderByList.html">ODataQueryOrderByList</a></code> <var>$orderByList</var></span> )</code>
 
 		<div class="description short">
 			<p>Enable query order by</p>
@@ -338,7 +344,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setTop">#</a>
-		<code><a href="source-class-ODataQuery.html#63-65" title="Go to source code">setTop</a>( <span> <var>$top</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#70-72" title="Go to source code">setTop</a>( <span> <var>$top</var></span> )</code>
 
 		<div class="description short">
 			
@@ -368,7 +374,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setSkip">#</a>
-		<code><a href="source-class-ODataQuery.html#67-69" title="Go to source code">setSkip</a>( <span> <var>$skip</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#74-76" title="Go to source code">setSkip</a>( <span> <var>$skip</var></span> )</code>
 
 		<div class="description short">
 			
@@ -398,7 +404,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_setExpand">#</a>
-		<code><a href="source-class-ODataQuery.html#71-73" title="Go to source code">setExpand</a>( <span> <var>$expand</var></span> )</code>
+		<code><a href="source-class-ODataQuery.html#78-80" title="Go to source code">setExpand</a>( <span> <var>$expand</var></span> )</code>
 
 		<div class="description short">
 			
@@ -428,7 +434,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSelect">#</a>
-		<code><a href="source-class-ODataQuery.html#79-81" title="Go to source code">getSelect</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#86-88" title="Go to source code">getSelect</a>( )</code>
 
 		<div class="description short">
 			
@@ -458,7 +464,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFrom">#</a>
-		<code><a href="source-class-ODataQuery.html#83-85" title="Go to source code">getFrom</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#90-92" title="Go to source code">getFrom</a>( )</code>
 
 		<div class="description short">
 			
@@ -488,7 +494,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getWhere">#</a>
-		<code><a href="source-class-ODataQuery.html#87-89" title="Go to source code">getWhere</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#94-96" title="Go to source code">getWhere</a>( )</code>
 
 		<div class="description short">
 			
@@ -518,7 +524,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getFilterAggregator">#</a>
-		<code><a href="source-class-ODataQuery.html#91-97" title="Go to source code">getFilterAggregator</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#98-104" title="Go to source code">getFilterAggregator</a>( )</code>
 
 		<div class="description short">
 			<p>Get filter aggregator</p>
@@ -552,7 +558,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getOrderByList">#</a>
-		<code><a href="source-class-ODataQuery.html#99-105" title="Go to source code">getOrderByList</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#106-112" title="Go to source code">getOrderByList</a>( )</code>
 
 		<div class="description short">
 			<p>Return order by</p>
@@ -586,7 +592,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getTop">#</a>
-		<code><a href="source-class-ODataQuery.html#107-109" title="Go to source code">getTop</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#114-116" title="Go to source code">getTop</a>( )</code>
 
 		<div class="description short">
 			
@@ -616,7 +622,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getSkip">#</a>
-		<code><a href="source-class-ODataQuery.html#111-113" title="Go to source code">getSkip</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#118-120" title="Go to source code">getSkip</a>( )</code>
 
 		<div class="description short">
 			
@@ -646,7 +652,7 @@
 
 		<td class="name"><div>
 		<a class="anchor" href="#_getExpand">#</a>
-		<code><a href="source-class-ODataQuery.html#115-117" title="Go to source code">getExpand</a>( )</code>
+		<code><a href="source-class-ODataQuery.html#122-124" title="Go to source code">getExpand</a>( )</code>
 
 		<div class="description short">
 			
