@@ -1,6 +1,6 @@
 # PhpOData
 
-Automatic OData Restful exposition of DB entities with security, transformations & other add-ons.
+Automatic OData Restful server and ORM. With security, transformations and other add-ons
 
 OData specification on [odata.org](odata.org)
 
@@ -40,6 +40,15 @@ There are four steps:
  2. Create Options configuration
  3. Create Scheme
  4. Create and launch server
+
+### Prepare OData server from existing Slim App
+
+Instead of call to run operation,  setSlimRule($app) must be called
+
+```php
+$odata=new OData($db,$options,$scheme);
+$odata->setSlimRule($app);
+```
 
 ## Calling OData server
 
@@ -376,7 +385,118 @@ TODO
 ## ODataCrypt
 TODO
 
+# Usign Object-relational mapping
 
+It is very simple to use ORM mode. It is required an OData and ODataRequestORM object.
+
+
+ A OData object must be defined as usual
+```php
+$odata=new OData($db,$options,$scheme);
+```
+
+A ORM request must be created. In this example is returning the User with ID 1 with its purchase list and product list
+
+```php
+$request=new ODataRequestORM("User", ODataRequest::METHOD_GET);
+$request->Pk(1);
+$request->Expand("PurchaseList/ProductList");
+```
+
+To execute an ORM must be used `executeLocal` method It will return an ODataResponse and access to the data with `getData()` method. Or if it fails returns an exception
+
+```php
+try{
+	$response=$odata->executeLocal($request);
+    $data=$response->getData();
+    //TODO : do something with $data
+}catch(Exception $e){
+    echo($e->getMessage());
+}
+```
+
+## ODataRequestORM
+### Constructor
+
+```php
+new ODataRequestORM(<entity>, <operation>);
+```
+
+Parameters:
+
+ - entity: Name of entity to query
+ - operation: operation to perform
+	 - ODataRequest::METHOD_GET - Get elements
+	 - ODataRequest::METHOD_POST - Create element
+	 - ODataRequest::METHOD_PATCH - Modify element
+	 - ODataRequest::METHOD_DELETE - Delete element
+
+### Methods
+
+####Pk
+Establishes the primary key. Filter usign the primary key, but if isn't established all elements (dependent of others filters) are returned. 
+
+```php
+$request->Pk(1);
+```
+
+You can use Filter instead
+
+####Body
+Set the data for creation and modification operations
+
+```php
+$request->Body("{'name':'my name'}");
+```
+
+####Filter
+Create a filter function. The parameter defines the filter to apply. You must use OData $filter language
+
+```php
+$request->Filter("name eq 'Ivan' or id eq 3");
+```
+
+####Expand
+Expand the result object. the parameter defines the expanded objects with multiple levels
+
+```php
+$request->Expand("PurchaseList/Product");
+```
+
+####OrderBy
+Sort the result usign one or more fields
+
+```php
+$request->OrderBy("name desc, id");
+```
+
+####Top or Limit
+Set the maximum number of elements to returns
+
+```php
+$request->Top(1);
+$request->Limit(1);
+```
+
+####Skip
+If you are usign Top, you can omite elements for perform a pagination
+
+```php
+$request->Skip(1);
+```
+
+####Page
+This filter helps to perform a pagination instead usign Top and Skip. Only it is needed to defined the page and the elements per page
+
+```php
+$request->Page(<page>,<count per page>);
+```
+
+In this example, we obtain the second page (10 elements per page)
+
+```php
+$request->Page(1,10);
+```
 
 # Define your own DB connector
 TODO
@@ -385,6 +505,8 @@ TODO
 
 MIT License 
 @2017 Ivan Lausuch <ilausuch@gmail.com>
+
+
 
 
 
