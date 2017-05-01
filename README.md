@@ -450,7 +450,7 @@ Parameters:
 
 ### Methods
 
-####Pk
+#### Pk
 Establishes the primary key. Filter usign the primary key, but if isn't established all elements (dependent of others filters) are returned. 
 
 ```php
@@ -459,35 +459,35 @@ $request->Pk(1);
 
 You can use Filter instead
 
-####Body
+#### Body
 Set the data for creation and modification operations
 
 ```php
 $request->Body("{'name':'my name'}");
 ```
 
-####Filter
+#### Filter
 Create a filter function. The parameter defines the filter to apply. You must use OData $filter language
 
 ```php
 $request->Filter("name eq 'Ivan' or id eq 3");
 ```
 
-####Expand
+#### Expand
 Expand the result object. the parameter defines the expanded objects with multiple levels
 
 ```php
 $request->Expand("PurchaseList/Product");
 ```
 
-####OrderBy
+#### OrderBy
 Sort the result usign one or more fields
 
 ```php
 $request->OrderBy("name desc, id");
 ```
 
-####Top or Limit
+#### Top or Limit
 Set the maximum number of elements to returns
 
 ```php
@@ -495,14 +495,14 @@ $request->Top(1);
 $request->Limit(1);
 ```
 
-####Skip
+#### Skip
 If you are usign Top, you can omite elements for perform a pagination
 
 ```php
 $request->Skip(1);
 ```
 
-####Page
+#### Page
 This filter helps to perform a pagination instead usign Top and Skip. Only it is needed to defined the page and the elements per page
 
 ```php
