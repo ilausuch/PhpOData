@@ -20,7 +20,7 @@ class ODataRequestORM extends ODataRequest{
     
     /**
      * Set the primary key
-     * @param string $value
+     * @param string or array $value
      * @return ODataRequestORM
      */
     public function Pk($value){
@@ -120,7 +120,7 @@ class ODataRequestORM extends ODataRequest{
      * @param int $countPerPage
      * @return ODataRequestORM
      */
-    public function page($page,$countPerPage){
+    public function Page($page,$countPerPage){
         $this->top=$countPerPage;
         $this->skip=$countPerPage*$page;
         return $this;

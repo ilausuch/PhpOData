@@ -35,10 +35,6 @@ $request->Expand("PurchaseList/ProductList");
 //$request->Skip(1);
 
 
-//$request->prepare("GET","User?\$expand=PurchaseList",[]);
-//$request->prepare("GET","User",[]);
-
-
 try{
     echo "<pre>";
     print_r($odata->executeLocal($request)->getData());
